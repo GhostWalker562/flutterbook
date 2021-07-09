@@ -1,0 +1,9 @@
+include: package:lint/analysis_options.yaml
+
+linter:
+  rules:
+    omit_local_variable_types: false
+    prefer_relative_imports: true
+    prefer_null_aware_operators: true
+    directives_ordering: true
+    avoid_positional_boolean_parameters: false

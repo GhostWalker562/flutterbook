@@ -1,0 +1,24 @@
+name: flutterbook
+description: A storyboard tool to accelerate the development of Flutter widgets.
+version: 0.1.2
+homepage: https://github.com/GhostWalker562/flutterbook
+
+environment:
+  sdk: ">=2.12.0 <3.0.0"
+  flutter: ">=1.17.0"
+
+dependencies:
+  cupertino_icons: ^1.0.3
+  flutter:
+    sdk: flutter
+  flutter_feather_icons: ^2.0.0
+  google_fonts: ^2.1.0
+  provider: ^5.0.0
+  recase: ^4.0.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  lint: ^1.3.0
+
+flutter:
