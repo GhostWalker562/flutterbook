@@ -21,9 +21,7 @@ ModalRoute<void> generateRoute(
         return provider;
       },
       child: Builder(
-        builder: (context) => const CoreContentWrapper(
-          component: CurrentStory(),
-        ),
+        builder: (context) => const Editor(component: Story()),
       ),
     );
   }

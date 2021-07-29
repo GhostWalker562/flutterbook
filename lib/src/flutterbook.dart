@@ -10,14 +10,31 @@ import 'theme_provider.dart';
 import 'utils/utils.dart';
 
 class FlutterBook extends StatefulWidget {
+  /// Categories that can contain folders or components that can display states.
+  /// States will have widgets which you may click on and display the widget in
+  /// the editor.
   final List<Category> categories;
+
+  /// The `ThemeData` that is defaulted when the project is opened. This should
+  /// be considered as the light theme.
   final ThemeData? theme;
+
+  /// The `ThemeData` used when the dark theme is enabled.
   final ThemeData? darkTheme;
+
+  /// The branding/header of the project. This is displayed on the top left of the
+  /// flutterbook.
+  final Widget? header;
+
+  /// The padding for the branding/header of the project.
+  final EdgeInsetsGeometry headerPadding;
 
   const FlutterBook({
     required this.categories,
     this.theme,
     this.darkTheme,
+    this.header,
+    this.headerPadding = const EdgeInsets.fromLTRB(20, 16, 20, 8),
   });
 
   @override
@@ -56,6 +73,8 @@ class _FlutterBookState extends State<FlutterBook> {
                 body: Row(
                   children: [
                     NavigationPanel(
+                      header: widget.header,
+                      headerPadding: widget.headerPadding,
                       categories: context.watch<List<Category>>().toList(),
                       onComponentSelected: (child) {
                         navigator.currentState!.pushReplacementNamed(

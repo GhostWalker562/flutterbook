@@ -10,12 +10,18 @@ import '../../utils/utils.dart';
 import '../navigation.dart';
 
 class NavigationPanel extends StatefulWidget {
-  const NavigationPanel(
-      {Key? key, required this.categories, this.onComponentSelected})
-      : super(key: key);
+  const NavigationPanel({
+    Key? key,
+    required this.categories,
+    this.onComponentSelected,
+    this.headerPadding,
+    this.header,
+  }) : super(key: key);
 
   final List<Category> categories;
   final void Function(ComponentState?)? onComponentSelected;
+  final Widget? header;
+  final EdgeInsetsGeometry? headerPadding;
 
   @override
   _NavigationPanelState createState() => _NavigationPanelState();
@@ -112,20 +118,29 @@ class _NavigationPanelState extends State<NavigationPanel> {
       constraints: const BoxConstraints(minWidth: 50, maxWidth: 250),
       child: Column(
         children: [
-          const _NavigationHeader(),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-            child: CupertinoSearchTextField(
-              controller: search,
-              // TODO: Implement search feature
-              // onChanged: _searchOrganizers,
-              // onSuffixTap: () {
-              //   search.text = '';
-              //   _searchOrganizers('');
-              // },
+          widget.header ?? const _NavigationHeader(),
+          Flexible(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+              child: Overlay(
+                initialEntries: [
+                  OverlayEntry(
+                    builder: (context) => CupertinoSearchTextField(
+                      itemSize: 16,
+                      controller: search,
+                      onChanged: _searchOrganizers,
+                      onSuffixTap: () {
+                        search.text = '';
+                        _searchOrganizers('');
+                      },
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
           Expanded(
+            flex: 14,
             child: Builder(
               builder: (context) {
                 if (kIsWeb) {

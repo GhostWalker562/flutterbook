@@ -9,8 +9,8 @@ import '../providers/zoom_provider.dart';
 import 'bottom_bar.dart';
 import 'tabs.dart';
 
-class CoreContentWrapper extends StatelessWidget {
-  const CoreContentWrapper({Key? key, required this.component})
+class Editor extends StatelessWidget {
+  const Editor({Key? key, required this.component})
       : super(key: key);
 
   final Widget? component;
@@ -42,29 +42,32 @@ class CoreContentWrapper extends StatelessWidget {
               height: 0,
               color: context.theme.dividerColor.withOpacity(0.5),
             ),
+            // Canvas
             Expanded(
-              child: Stack(
-                children: [
-                  Positioned.fill(
-                    child: Consumer<GridProvider>(
+              child: ClipRect(
+                child: Stack(
+                  children: [
+                    Positioned.fill(
+                      child: Consumer<GridProvider>(
+                        builder: (context, model, child) {
+                          return model.grid
+                              ? GridPaper(
+                                  color: context.theme.canvasColor,
+                                )
+                              : const SizedBox.shrink();
+                        },
+                      ),
+                    ),
+                    Consumer<ZoomProvider>(
                       builder: (context, model, child) {
-                        return model.grid
-                            ? GridPaper(
-                                color: context.theme.canvasColor,
-                              )
-                            : const SizedBox.shrink();
+                        return Transform.scale(
+                          scale: model.zoom,
+                          child: component ?? const SizedBox.shrink(),
+                        );
                       },
                     ),
-                  ),
-                  Consumer<ZoomProvider>(
-                    builder: (context, model, child) {
-                      return Transform.scale(
-                        scale: model.zoom,
-                        child: component ?? const SizedBox.shrink(),
-                      );
-                    },
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
             Divider(
@@ -79,8 +82,8 @@ class CoreContentWrapper extends StatelessWidget {
   }
 }
 
-class CurrentStory extends StatelessWidget {
-  const CurrentStory({Key? key}) : super(key: key);
+class Story extends StatelessWidget {
+  const Story({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
