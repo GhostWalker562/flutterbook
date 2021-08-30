@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../core/core.dart';
+import '../editor/editor.dart';
 import '../utils/utils.dart';
 
 abstract class Control<T> {

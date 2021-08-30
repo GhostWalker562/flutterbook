@@ -119,7 +119,8 @@ class _NavigationPanelState extends State<NavigationPanel> {
       child: Column(
         children: [
           widget.header ?? const _NavigationHeader(),
-          Flexible(
+          SizedBox(
+            height: 50,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
               child: Overlay(
@@ -140,7 +141,6 @@ class _NavigationPanelState extends State<NavigationPanel> {
             ),
           ),
           Expanded(
-            flex: 14,
             child: Builder(
               builder: (context) {
                 if (kIsWeb) {

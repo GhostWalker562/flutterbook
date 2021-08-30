@@ -6,8 +6,8 @@ import '../../utils/utils.dart';
 import '../providers/canvas_delegate.dart';
 import '../providers/grid_provider.dart';
 import '../providers/zoom_provider.dart';
-import 'bottom_bar.dart';
-import 'tabs.dart';
+import 'editor_bottom_bar.dart';
+import 'editor_tabs.dart';
 
 class Editor extends StatelessWidget {
   const Editor({Key? key, required this.component})

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../core/core.dart';
-import '../core/providers/canvas_delegate.dart';
+import '../editor/editor.dart';
 import '../navigation/models/organizers.dart';
 import '../navigation/navigation.dart';
 import 'story_provider.dart';

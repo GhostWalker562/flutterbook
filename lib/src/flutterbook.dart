@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'core/core.dart';
+import 'editor/editor.dart';
 import 'navigation/navigation.dart';
 import 'routing/router.dart';
 import 'styled_widgets/styled_widgets.dart';
