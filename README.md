@@ -51,7 +51,7 @@ void main() {
 
 #### How to add Widgets
 
-Too add widgets, you simply put `Organizers`, aka `Category`, `Folder`, `Component`, and `ComponentState`.
+To add widgets, you simply put `Organizers`, aka `Category`, `Folder`, `Component`, and `ComponentState`.
 
 The hierarchy goes
 
