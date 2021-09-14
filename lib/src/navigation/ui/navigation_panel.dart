@@ -80,7 +80,8 @@ class _NavigationPanelState extends State<NavigationPanel> {
           );
           break;
         case OrganizerType.component:
-          if (query.isEmpty || item.name.contains(query)) {
+          final lowerQuery = query.toLowerCase();
+          if (query.isEmpty || item.name.toLowerCase().contains(lowerQuery)) {
             current.add(
               ComponentTile(
                 states: (item as Component)

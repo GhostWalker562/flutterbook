@@ -12,3 +12,7 @@
 ## 0.1.4
 
 * Fix navigation path from excluding the direct parent of the component state
+
+# 0.1.5
+
+* Ignore case during search
