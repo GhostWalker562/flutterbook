@@ -51,7 +51,7 @@ void main() {
 
 #### How to add Widgets
 
-Too add widgets, you simply put `Organizers`, aka `Category`, `Folder`, `Component`, and `ComponentState`.
+To add widgets, you simply put `Organizers`, aka `Category`, `Folder`, `Component`, and `ComponentState`.
 
 The hierarchy goes
 
@@ -127,16 +127,21 @@ Category(
     ],
 ),
 ```
+
 #### That's it!
 
 ## Roadmap 🚧
-* Mobile Support [  ]
-* 100% Code Coverage Testing [ ]
-* Documentation Support in ComponentState's [ ]
-* Better Docs [ ]
-* Device Previews [ ]
-* Shareable Handoffs [ ]
-* Optimization [ ]
+- [ ] Mobile Support
+- [ ] 100% Code Coverage Testing
+- [ ] Documentation Support in ComponentState's
+- [ ] Better Docs
+- [ ] Device Previews
+- [ ] Shareable Handoffs
+- [ ] Optimization
 
 ## Contributors 🔥
-* Your name could be here 😉
+_Your name could be here_ 😉
+
+<a href="https://github.com/GhostWalker562/flutterbook/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=GhostWalker562/flutterbook" />
+</a>

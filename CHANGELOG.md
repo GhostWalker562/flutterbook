@@ -11,3 +11,10 @@
 * Refactor to fit new naming scheme
 
 * More components have been documented
+
+## 0.1.4
+
+* Fix navigation path from excluding the direct parent of the component state
+
+
+

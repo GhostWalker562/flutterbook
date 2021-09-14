@@ -58,10 +58,10 @@ class ComponentState {
 
   String get path {
     String path = ReCase(stateName).paramCase;
-    Organizer? current = parent;
-    while (current?.parent != null) {
-      path = '${ReCase(current!.parent!.name).paramCase}${'/$path'}';
-      current = current.parent;
+    Organizer? currentParent = parent;
+    while (currentParent != null) {
+      path = '${ReCase(currentParent.name).paramCase}${'/$path'}';
+      currentParent = currentParent.parent;
     }
     return path;
   }
