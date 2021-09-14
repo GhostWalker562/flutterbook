@@ -131,13 +131,13 @@ Category(
 #### That's it!
 
 ## Roadmap 🚧
-* Mobile Support [  ]
-* 100% Code Coverage Testing [ ]
-* Documentation Support in ComponentState's [ ]
-* Better Docs [ ]
-* Device Previews [ ]
-* Shareable Handoffs [ ]
-* Optimization [ ]
+- [ ] Mobile Support
+- [ ] 100% Code Coverage Testing
+- [ ] Documentation Support in ComponentState's
+- [ ] Better Docs
+- [ ] Device Previews
+- [ ] Shareable Handoffs
+- [ ] Optimization
 
 ## Contributors 🔥
 _Your name could be here_ 😉
