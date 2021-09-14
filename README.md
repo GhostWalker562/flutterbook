@@ -14,7 +14,7 @@ Go subscribe to my YouTube channel to support development.
 
 # [![MOONSDONTBURN Header](https://i.imgur.com/1QHjcUZ.png)](https://www.youtube.com/channel/UCurQRmT17EyOIrdPseiastg)
 
-## Overview
+## Overview ✨
 
 #### Creating the Main
 
@@ -127,7 +127,16 @@ Category(
     ],
 ),
 ```
-
----
-
 #### That's it!
+
+## Roadmap 🚧
+* Mobile Support [  ]
+* 100% Code Coverage Testing [ ]
+* Documentation Support in ComponentState's [ ]
+* Better Docs [ ]
+* Device Previews [ ]
+* Shareable Handoffs [ ]
+* Optimization [ ]
+
+## Contributors 🔥
+* Your name could be here 😉

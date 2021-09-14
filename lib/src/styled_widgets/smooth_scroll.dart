@@ -16,12 +16,13 @@ class SmoothScroll extends StatefulWidget {
   final Curve curve;
 
   const SmoothScroll({
+    Key? key,
     required this.controller,
     required this.child,
     this.scrollSpeed = kDefaultScrollSpeed,
     this.scrollDuration = kDefaultScrollDuration,
     this.curve = Curves.linear,
-  });
+  }) : super(key: key);
 
   @override
   _SmoothScrollState createState() => _SmoothScrollState();
