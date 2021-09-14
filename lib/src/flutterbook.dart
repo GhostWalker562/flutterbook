@@ -30,12 +30,13 @@ class FlutterBook extends StatefulWidget {
   final EdgeInsetsGeometry headerPadding;
 
   const FlutterBook({
+    Key? key,
     required this.categories,
     this.theme,
     this.darkTheme,
     this.header,
     this.headerPadding = const EdgeInsets.fromLTRB(20, 16, 20, 8),
-  });
+  }) : super(key: key);
 
   @override
   _FlutterBookState createState() => _FlutterBookState();

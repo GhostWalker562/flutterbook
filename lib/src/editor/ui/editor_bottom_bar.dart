@@ -3,7 +3,6 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:provider/provider.dart';
 
 import '../../routing/story_provider.dart';
-import '../../styled_widgets/animations.dart';
 import '../../styled_widgets/styled_widgets.dart';
 import '../../utils/extensions.dart';
 import '../providers/canvas_delegate.dart';
@@ -32,7 +31,7 @@ class _CoreBottomBarState extends State<CoreBottomBar> {
 
   @override
   Widget build(BuildContext context) {
-    return StatefulAnimatedSize(
+    return AnimatedSize(
       curve: Curves.linearToEaseOut,
       duration: const Duration(milliseconds: 300),
       child: Column(
