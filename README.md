@@ -126,6 +126,7 @@ Category(
     ),
     ],
 ),
+```
 
 #### That's it!
 
@@ -139,5 +140,8 @@ Category(
 * Optimization [ ]
 
 ## Contributors 🔥
-* Your name could be here 😉
+_Your name could be here_ 😉
 
+<a href="https://github.com/GhostWalker562/flutterbook/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=GhostWalker562/flutterbook" />
+</a>
