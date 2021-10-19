@@ -19,3 +19,5 @@
 # 0.1.5
 
 * Ignore case during search
+
+* Dependency Updates
