@@ -68,6 +68,29 @@ class Storyboard extends StatelessWidget {
                 ),
               ],
             ),
+            Component(
+              componentName: 'List',
+              states: [
+                ComponentState(
+                  stateName: 'Primary',
+                  builder: (context, c) {
+                    return Container(
+                      width: 400,
+                      height: 400,
+                      color: Colors.white,
+                      child: ListView.builder(
+                        itemCount: 10,
+                        itemBuilder: (_, i) => Container(
+                          width: 400,
+                          height: 100,
+                          color: (i % 2 == 0) ? Colors.red : Colors.grey,
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ],
+            ),
           ],
         ),
       ],

@@ -1,3 +1,4 @@
+import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -10,8 +11,7 @@ import 'editor_bottom_bar.dart';
 import 'editor_tabs.dart';
 
 class Editor extends StatelessWidget {
-  const Editor({Key? key, required this.component})
-      : super(key: key);
+  const Editor({Key? key, required this.component}) : super(key: key);
 
   final Widget? component;
 
@@ -60,9 +60,13 @@ class Editor extends StatelessWidget {
                     ),
                     Consumer<ZoomProvider>(
                       builder: (context, model, child) {
-                        return Transform.scale(
-                          scale: model.zoom,
-                          child: component ?? const SizedBox.shrink(),
+                        return DevicePreview(
+                          builder: (context) {
+                            return Transform.scale(
+                              scale: model.zoom,
+                              child: component ?? const SizedBox.shrink(),
+                            );
+                          },
                         );
                       },
                     ),
