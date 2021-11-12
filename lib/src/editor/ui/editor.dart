@@ -1,5 +1,6 @@
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
+import 'package:flutterbook/src/editor/providers/device_preview_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../../routing/story_provider.dart';
@@ -60,14 +61,17 @@ class Editor extends StatelessWidget {
                     ),
                     Consumer<ZoomProvider>(
                       builder: (context, model, child) {
-                        return DevicePreview(
+                        return context.watch<DevicePreviewProvider>().show ? DevicePreview(
                           builder: (context) {
                             return Transform.scale(
                               scale: model.zoom,
                               child: component ?? const SizedBox.shrink(),
                             );
                           },
-                        );
+                        ) : Transform.scale(
+                              scale: model.zoom,
+                              child: component ?? const SizedBox.shrink(),
+                            );
                       },
                     ),
                   ],
