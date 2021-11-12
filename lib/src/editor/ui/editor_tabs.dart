@@ -131,7 +131,6 @@ class _CoreContentTabsState extends State<CoreContentTabs> {
               size: 16,
             ),
           ),
-          const SizedBox(width: 8),
           const _TabsVerticalDivider(),
           TextButton(
             onPressed: context.read<GridProvider>().toggleGrid,
