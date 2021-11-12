@@ -95,14 +95,17 @@ class Story extends StatelessWidget {
 
     return story?.builder(
             context, context.watch<CanvasDelegateProvider>().storyProvider!) ??
-        Center(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text('😉', style: context.textTheme.headline2),
-              const SizedBox(height: 12),
-              const Text('Select a Story!'),
-            ],
+        Container(
+          color: context.colorScheme.onSecondary,
+          child: Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text('😉', style: context.textTheme.headline2),
+                const SizedBox(height: 12),
+                const Text('Select a Story!'),
+              ],
+            ),
           ),
         );
   }
