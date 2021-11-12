@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:flutterbook/src/editor/providers/device_preview_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../../theme_provider.dart';
@@ -166,6 +167,28 @@ class _CoreContentTabsState extends State<CoreContentTabs> {
               builder: (context, model, child) {
                 return Icon(
                   FeatherIcons.moon,
+                  color: Styles.isDark
+                      ? context.colorScheme.primary
+                      : context.theme.hintColor,
+                  size: 16,
+                );
+              },
+            ),
+          ),
+           const SizedBox(width: 8),
+          TextButton(
+            onPressed: context.read<DevicePreviewProvider>().togglePreview,
+            style: TextButton.styleFrom(
+              splashFactory: InkRipple.splashFactory,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(90)),
+              minimumSize: Size.zero,
+              padding: const EdgeInsets.all(12),
+            ),
+            child: Consumer<DarkThemeProvider>(
+              builder: (context, model, child) {
+                return Icon(
+                  FeatherIcons.smartphone,
                   color: Styles.isDark
                       ? context.colorScheme.primary
                       : context.theme.hintColor,
