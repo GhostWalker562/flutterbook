@@ -153,7 +153,6 @@ class _CoreContentTabsState extends State<CoreContentTabs> {
               },
             ),
           ),
-          const SizedBox(width: 8),
           TextButton(
             onPressed: context.read<DarkThemeProvider>().toggleDarkTheme,
             style: TextButton.styleFrom(
@@ -175,7 +174,7 @@ class _CoreContentTabsState extends State<CoreContentTabs> {
               },
             ),
           ),
-           const SizedBox(width: 8),
+          const SizedBox(width: 8),
           TextButton(
             onPressed: context.read<DevicePreviewProvider>().togglePreview,
             style: TextButton.styleFrom(
@@ -197,6 +196,7 @@ class _CoreContentTabsState extends State<CoreContentTabs> {
               },
             ),
           ),
+          const SizedBox(width: 8),
         ],
       ),
     );

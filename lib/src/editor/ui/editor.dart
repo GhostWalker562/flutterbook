@@ -61,17 +61,28 @@ class Editor extends StatelessWidget {
                     ),
                     Consumer<ZoomProvider>(
                       builder: (context, model, child) {
-                        return context.watch<DevicePreviewProvider>().show ? DevicePreview(
-                          builder: (context) {
-                            return Transform.scale(
-                              scale: model.zoom,
-                              child: component ?? const SizedBox.shrink(),
-                            );
-                          },
-                        ) : Transform.scale(
-                              scale: model.zoom,
-                              child: component ?? const SizedBox.shrink(),
-                            );
+                        TransformationController _transformation =
+                            TransformationController();
+                        _transformation.value = Matrix4.identity()
+                          ..scale(model.zoom);
+                        return context.watch<DevicePreviewProvider>().show
+                            ? DevicePreview(
+                                builder: (context) {
+                                  return InteractiveViewer(
+                                    panEnabled: true,
+                                    boundaryMargin:
+                                        EdgeInsets.all(double.infinity),
+                                    child: component ?? const SizedBox.shrink(),
+                                    transformationController: _transformation,
+                                  );
+                                },
+                              )
+                            : InteractiveViewer(
+                                panEnabled: true,
+                                boundaryMargin: EdgeInsets.all(double.infinity),
+                                transformationController: _transformation,
+                                child: component ?? const SizedBox.shrink(),
+                              );
                       },
                     ),
                   ],
