@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutterbook/src/editor/editor.dart';
 import 'package:flutterbook/src/editor/providers/device_preview_provider.dart';
+import 'package:flutterbook/src/editor/providers/tab_provider.dart';
 import 'package:flutterbook/src/editor/ui/styled_icon_button.dart';
 import 'package:provider/provider.dart';
 
@@ -19,8 +20,6 @@ class CoreContentTabs extends StatefulWidget {
 }
 
 class _CoreContentTabsState extends State<CoreContentTabs> {
-  FlutterBookTab tab = FlutterBookTab.canvas;
-
   @override
   Widget build(BuildContext context) {
     final TextStyle selectedTabStyle = context.textTheme.subtitle1!.copyWith(
@@ -37,16 +36,19 @@ class _CoreContentTabsState extends State<CoreContentTabs> {
       child: Row(
         children: [
           TextButton(
-            onPressed: () => setState(() => tab = FlutterBookTab.canvas),
+            onPressed: () => {
+              Provider.of<TabProvider>(context, listen: false).setTab(FlutterBookTab.canvas)
+            },
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 200),
               decoration: BoxDecoration(
                 border: Border(
                   bottom: BorderSide(
                     color: context.colorScheme.primary,
-                    style: tab == FlutterBookTab.canvas
-                        ? BorderStyle.solid
-                        : BorderStyle.none,
+                    style:
+                        context.watch<TabProvider>().tab == FlutterBookTab.canvas
+                            ? BorderStyle.solid
+                            : BorderStyle.none,
                     width: 3,
                   ),
                 ),
@@ -55,22 +57,25 @@ class _CoreContentTabsState extends State<CoreContentTabs> {
                   const EdgeInsets.symmetric(vertical: 12.0, horizontal: 24.0),
               child: Text(
                 'Canvas',
-                style:
-                    tab == FlutterBookTab.canvas ? selectedTabStyle : tabStyle,
+                style: context.read<TabProvider>().tab == FlutterBookTab.canvas
+                    ? selectedTabStyle
+                    : tabStyle,
               ),
             ),
           ),
           TextButton(
-            onPressed: () => setState(() => tab = FlutterBookTab.docs),
+            onPressed: () =>
+                {Provider.of<TabProvider>(context, listen: false).setTab(FlutterBookTab.docs)},
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 200),
               decoration: BoxDecoration(
                 border: Border(
                   bottom: BorderSide(
                     color: context.colorScheme.primary,
-                    style: tab == FlutterBookTab.docs
-                        ? BorderStyle.solid
-                        : BorderStyle.none,
+                    style:
+                        context.watch<TabProvider>().tab == FlutterBookTab.docs
+                            ? BorderStyle.solid
+                            : BorderStyle.none,
                     width: 3,
                   ),
                 ),
@@ -79,7 +84,9 @@ class _CoreContentTabsState extends State<CoreContentTabs> {
                   const EdgeInsets.symmetric(vertical: 12.0, horizontal: 24.0),
               child: Text(
                 'Docs',
-                style: tab == FlutterBookTab.docs ? selectedTabStyle : tabStyle,
+                style: context.read<TabProvider>().tab == FlutterBookTab.docs
+                    ? selectedTabStyle
+                    : tabStyle,
               ),
             ),
           ),

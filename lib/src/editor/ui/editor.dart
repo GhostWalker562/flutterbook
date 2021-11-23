@@ -1,6 +1,7 @@
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterbook/src/editor/providers/device_preview_provider.dart';
+import 'package:flutterbook/src/editor/providers/tab_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../../routing/story_provider.dart';
@@ -9,7 +10,7 @@ import '../providers/canvas_delegate.dart';
 import '../providers/grid_provider.dart';
 import '../providers/zoom_provider.dart';
 import 'editor_bottom_bar.dart';
-import 'editor_tabs.dart';
+import 'editor_tabs.dart' as editor;
 
 class Editor extends StatelessWidget {
   const Editor({Key? key, required this.component}) : super(key: key);
@@ -35,9 +36,9 @@ class Editor extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            const SingleChildScrollView(
+            SingleChildScrollView(
               scrollDirection: Axis.horizontal,
-              child: CoreContentTabs(),
+              child: editor.CoreContentTabs(),
             ),
             Divider(
               height: 0,
@@ -59,32 +60,47 @@ class Editor extends StatelessWidget {
                         },
                       ),
                     ),
-                    Consumer<ZoomProvider>(
+                    Consumer<TabProvider>(
                       builder: (context, model, child) {
-                        TransformationController _transformation =
-                            TransformationController();
-                        _transformation.value = Matrix4.identity()
-                          ..scale(model.zoom);
-                        return context.watch<DevicePreviewProvider>().show
-                            ? DevicePreview(
-                                builder: (context) {
-                                  return InteractiveViewer(
-                                    panEnabled: true,
-                                    boundaryMargin:
-                                        EdgeInsets.all(double.infinity),
-                                    child: component ?? const SizedBox.shrink(),
-                                    transformationController: _transformation,
-                                  );
+                        return model.tab == editor.FlutterBookTab.canvas
+                            ? Consumer<ZoomProvider>(
+                                builder: (context, model, child) {
+                                  TransformationController _transformation =
+                                      TransformationController();
+                                  _transformation.value = Matrix4.identity()
+                                    ..scale(model.zoom);
+                                  return context
+                                          .watch<DevicePreviewProvider>()
+                                          .show
+                                      ? DevicePreview(
+                                          builder: (context) {
+                                            return InteractiveViewer(
+                                              panEnabled: true,
+                                              boundaryMargin: EdgeInsets.all(
+                                                  double.infinity),
+                                              child: component ??
+                                                  const SizedBox.shrink(),
+                                              transformationController:
+                                                  _transformation,
+                                            );
+                                          },
+                                        )
+                                      : InteractiveViewer(
+                                          panEnabled: true,
+                                          boundaryMargin:
+                                              EdgeInsets.all(double.infinity),
+                                          transformationController:
+                                              _transformation,
+                                          child: component ??
+                                              const SizedBox.shrink(),
+                                        );
                                 },
                               )
-                            : InteractiveViewer(
-                                panEnabled: true,
-                                boundaryMargin: EdgeInsets.all(double.infinity),
-                                transformationController: _transformation,
-                                child: component ?? const SizedBox.shrink(),
+                            : Container(
+                                child: Text("TESTTTTTTT"),
                               );
                       },
-                    ),
+                    )
                   ],
                 ),
               ),
