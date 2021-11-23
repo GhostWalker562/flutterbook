@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:flutterbook/src/editor/editor.dart';
 import 'package:flutterbook/src/editor/providers/device_preview_provider.dart';
 import 'package:flutterbook/src/editor/ui/styled_icon_button.dart';
 import 'package:provider/provider.dart';
@@ -96,6 +97,10 @@ class _CoreContentTabsState extends State<CoreContentTabs> {
           StyledIconButton(
             onPressed: context.read<ZoomProvider>().resetZoom,
             icon: FeatherIcons.refreshCcw,
+          ),
+          StyledIconButton(
+            onPressed: context.read<GridProvider>().toggleGrid,
+            icon: FeatherIcons.grid,
           ),
           const TabsVerticalDivider(),
           const SizedBox(width: 8),
