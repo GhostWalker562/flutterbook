@@ -3,7 +3,7 @@ import 'package:flutterbook/src/utils/extensions.dart';
 
 class StyledIconButton extends StatelessWidget {
   final IconData icon;
-  final Function onPressed;
+  final VoidCallback onPressed;
 
   StyledIconButton({
     required this.icon,
@@ -13,7 +13,7 @@ class StyledIconButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextButton(
-        onPressed: onPressed(),
+        onPressed: onPressed,
         style: TextButton.styleFrom(
           splashFactory: InkRipple.splashFactory,
           shape:
