@@ -2,6 +2,7 @@ import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterbook/src/editor/providers/device_preview_provider.dart';
 import 'package:flutterbook/src/editor/providers/tab_provider.dart';
+import 'package:flutterbook/src/editor/ui/doc_component.dart';
 import 'package:provider/provider.dart';
 
 import '../../routing/story_provider.dart';
@@ -97,7 +98,8 @@ class Editor extends StatelessWidget {
                                 },
                               )
                             : Container(
-                                child: Text("TESTTTTTTT"),
+                                child: DocPanel(component: component ??
+                                                  const Text("data")),
                               );
                       },
                     )
