@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutterbook/src/editor/providers/device_preview_provider.dart';
+import 'package:flutterbook/src/editor/ui/styled_icon_button.dart';
 import 'package:provider/provider.dart';
 
 import '../../theme_provider.dart';
 import '../../utils/extensions.dart';
-import '../../utils/styles.dart' show Styles;
-import '../providers/grid_provider.dart';
 import '../providers/zoom_provider.dart';
 
 enum FlutterBookTab { canvas, docs }
@@ -83,128 +82,40 @@ class _CoreContentTabsState extends State<CoreContentTabs> {
               ),
             ),
           ),
-          const _TabsVerticalDivider(),
-          TextButton(
+          const TabsVerticalDivider(),
+          StyledIconButton(
             onPressed: context.read<ZoomProvider>().zoomIn,
-            style: TextButton.styleFrom(
-              splashFactory: InkRipple.splashFactory,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(90)),
-              minimumSize: Size.zero,
-              padding: const EdgeInsets.all(12),
-            ),
-            child: Icon(
-              FeatherIcons.zoomIn,
-              color: context.theme.hintColor,
-              size: 16,
-            ),
+            icon: FeatherIcons.zoomIn,
           ),
           const SizedBox(width: 8),
-          TextButton(
+          StyledIconButton(
             onPressed: context.read<ZoomProvider>().zoomOut,
-            style: TextButton.styleFrom(
-              splashFactory: InkRipple.splashFactory,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(90)),
-              minimumSize: Size.zero,
-              padding: const EdgeInsets.all(12),
-            ),
-            child: Icon(
-              FeatherIcons.zoomOut,
-              color: context.theme.hintColor,
-              size: 16,
-            ),
+            icon: FeatherIcons.zoomOut,
           ),
           const SizedBox(width: 8),
-          TextButton(
+          StyledIconButton(
             onPressed: context.read<ZoomProvider>().resetZoom,
-            style: TextButton.styleFrom(
-              splashFactory: InkRipple.splashFactory,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(90)),
-              minimumSize: Size.zero,
-              padding: const EdgeInsets.all(12),
-            ),
-            child: Icon(
-              FeatherIcons.refreshCcw,
-              color: context.theme.hintColor,
-              size: 16,
-            ),
+            icon: FeatherIcons.refreshCcw,
           ),
-          const _TabsVerticalDivider(),
-          TextButton(
-            onPressed: context.read<GridProvider>().toggleGrid,
-            style: TextButton.styleFrom(
-              splashFactory: InkRipple.splashFactory,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(90)),
-              minimumSize: Size.zero,
-              padding: const EdgeInsets.all(12),
-            ),
-            child: Consumer<GridProvider>(
-              builder: (context, model, child) {
-                return Icon(
-                  FeatherIcons.grid,
-                  color: model.grid
-                      ? context.colorScheme.primary
-                      : context.theme.hintColor,
-                  size: 16,
-                );
-              },
-            ),
-          ),
-          TextButton(
+          const TabsVerticalDivider(),
+          const SizedBox(width: 8),
+          StyledIconButton(
             onPressed: context.read<DarkThemeProvider>().toggleDarkTheme,
-            style: TextButton.styleFrom(
-              splashFactory: InkRipple.splashFactory,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(90)),
-              minimumSize: Size.zero,
-              padding: const EdgeInsets.all(12),
-            ),
-            child: Consumer<DarkThemeProvider>(
-              builder: (context, model, child) {
-                return Icon(
-                  FeatherIcons.moon,
-                  color: Styles.isDark
-                      ? context.colorScheme.primary
-                      : context.theme.hintColor,
-                  size: 16,
-                );
-              },
-            ),
+            icon: FeatherIcons.moon,
           ),
           const SizedBox(width: 8),
-          TextButton(
+          StyledIconButton(
             onPressed: context.read<DevicePreviewProvider>().togglePreview,
-            style: TextButton.styleFrom(
-              splashFactory: InkRipple.splashFactory,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(90)),
-              minimumSize: Size.zero,
-              padding: const EdgeInsets.all(12),
-            ),
-            child: Consumer<DarkThemeProvider>(
-              builder: (context, model, child) {
-                return Icon(
-                  FeatherIcons.smartphone,
-                  color: Styles.isDark
-                      ? context.colorScheme.primary
-                      : context.theme.hintColor,
-                  size: 16,
-                );
-              },
-            ),
+            icon: FeatherIcons.smartphone,
           ),
-          const SizedBox(width: 8),
         ],
       ),
     );
   }
 }
 
-class _TabsVerticalDivider extends StatelessWidget {
-  const _TabsVerticalDivider({Key? key}) : super(key: key);
+class TabsVerticalDivider extends StatelessWidget {
+  const TabsVerticalDivider({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
