@@ -3,7 +3,7 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutterbook/src/editor/ui/styled_icon_button.dart';
 import 'package:flutterbook/src/utils/extensions.dart';
 import 'package:flutterbook/src/utils/radii.dart';
-import 'editor_tabs.dart';
+
 
 class DocPanel extends StatefulWidget {
   final Widget component;
@@ -45,7 +45,7 @@ class _DocPanelState extends State<DocPanel> {
     TransformationController _transformation = TransformationController();
     _transformation.value = Matrix4.identity()..scale(zoom);
     return Container(
-      width: 548,
+      width: 900,
       decoration: BoxDecoration(
         boxShadow: [
           BoxShadow(
@@ -85,7 +85,8 @@ class _DocPanelState extends State<DocPanel> {
               height: 0,
               color: context.theme.dividerColor.withOpacity(0.5),
             ),
-            Center(
+            Padding(
+              padding: EdgeInsets.all(15),
               child: InteractiveViewer(
                 panEnabled: true,
                 boundaryMargin: EdgeInsets.all(double.infinity),

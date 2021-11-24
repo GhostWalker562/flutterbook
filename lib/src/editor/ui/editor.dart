@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutterbook/src/editor/providers/device_preview_provider.dart';
 import 'package:flutterbook/src/editor/providers/tab_provider.dart';
 import 'package:flutterbook/src/editor/ui/doc_component.dart';
+import 'package:flutterbook/src/routing/router.dart';
 import 'package:provider/provider.dart';
 
+import '../../../flutterbook.dart';
 import '../../routing/story_provider.dart';
 import '../../utils/utils.dart';
 import '../providers/canvas_delegate.dart';
@@ -63,6 +65,9 @@ class Editor extends StatelessWidget {
                     ),
                     Consumer<TabProvider>(
                       builder: (context, model, child) {
+                        List<ComponentState> state = recursiveRetrievalOfStates(
+                            context.read<List<Category>>());
+
                         return model.tab == editor.FlutterBookTab.canvas
                             ? Consumer<ZoomProvider>(
                                 builder: (context, model, child) {
@@ -97,9 +102,25 @@ class Editor extends StatelessWidget {
                                         );
                                 },
                               )
-                            : Container(
-                                child: DocPanel(component: component ??
-                                                  const Text("data")),
+                            : Center(
+                                child: Container(
+                                    child: Column(
+                                  children: [
+                                    ...state
+                                        .map(
+                                          (item) => DocPanel(
+                                            component: item.builder(
+                                              context,
+                                              context
+                                                  .watch<
+                                                      CanvasDelegateProvider>()
+                                                  .storyProvider!,
+                                            ),
+                                          ),
+                                        )
+                                        .toList()
+                                  ],
+                                )),
                               );
                       },
                     )
