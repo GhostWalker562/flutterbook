@@ -102,26 +102,28 @@ class Editor extends StatelessWidget {
                                         );
                                 },
                               )
-                            : Center(
-                                child: Container(
-                                    child: Column(
-                                  children: [
-                                    ...state
-                                        .map(
-                                          (item) => DocPanel(
-                                            component: item.builder(
-                                              context,
-                                              context
-                                                  .watch<
-                                                      CanvasDelegateProvider>()
-                                                  .storyProvider!,
+                            : SingleChildScrollView(
+                              child: Center(
+                                  child: Container(
+                                      child: Column(
+                                    children: [
+                                      ...state
+                                          .map(
+                                            (item) => DocPanel(
+                                              component: item.builder(
+                                                context,
+                                                context
+                                                    .watch<
+                                                        CanvasDelegateProvider>()
+                                                    .storyProvider!,
+                                              ),
                                             ),
-                                          ),
-                                        )
-                                        .toList()
-                                  ],
-                                )),
-                              );
+                                          )
+                                          .toList()
+                                    ],
+                                  )),
+                                ),
+                            );
                       },
                     )
                   ],

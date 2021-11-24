@@ -4,7 +4,6 @@ import 'package:flutterbook/src/editor/ui/styled_icon_button.dart';
 import 'package:flutterbook/src/utils/extensions.dart';
 import 'package:flutterbook/src/utils/radii.dart';
 
-
 class DocPanel extends StatefulWidget {
   final Widget component;
   const DocPanel({
@@ -18,7 +17,6 @@ class DocPanel extends StatefulWidget {
 
 class _DocPanelState extends State<DocPanel> {
   bool expanded = false;
-  bool hover = false;
   double _zoom = 1;
   get zoom => _zoom;
 
@@ -37,6 +35,12 @@ class _DocPanelState extends State<DocPanel> {
   void resetZoom() {
     setState(() {
       _zoom = 1;
+    });
+  }
+
+  void toggleExpansion() {
+    setState(() {
+      expanded = !expanded;
     });
   }
 
@@ -86,13 +90,34 @@ class _DocPanelState extends State<DocPanel> {
               color: context.theme.dividerColor.withOpacity(0.5),
             ),
             Padding(
-              padding: EdgeInsets.all(15),
+              padding: EdgeInsets.all(5),
               child: InteractiveViewer(
-                panEnabled: true,
-                boundaryMargin: EdgeInsets.all(double.infinity),
-                transformationController: _transformation,
-                child: widget.component),
-            )
+                  panEnabled: true,
+                  boundaryMargin: EdgeInsets.all(double.infinity),
+                  transformationController: _transformation,
+                  child: widget.component),
+            ),
+            Align(
+              alignment: Alignment.bottomLeft,
+              child: TextButton(
+                child: Text(expanded ? "Show Code" : "Hide Code"),
+                onPressed: toggleExpansion,
+              ),
+            ),
+            expanded
+                ? Container(
+                    decoration: BoxDecoration(
+                      color: Colors.black,
+                      boxShadow: [
+                        BoxShadow(
+                          blurRadius: 8,
+                          color: context.theme.shadowColor.withOpacity(0.075),
+                        ),
+                      ],
+                      borderRadius: canvasBorderRadius,
+                    ),
+                  )
+                : Container(),
           ],
         ),
       ),
