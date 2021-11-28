@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 import '../../routing/story_provider.dart';
 import '../../styled_widgets/styled_widgets.dart';
 import '../../utils/extensions.dart';
-import '../providers/canvas_delegate.dart';
 
 enum FlutterBookTab { controls, actions, none }
 
@@ -121,38 +120,35 @@ class _BottomBarContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => context.read<CanvasDelegateProvider>().storyProvider,
-      child: Consumer<StoryProvider>(
-        builder: (BuildContext context, StoryProvider value, Widget? child) {
-          return Unfocuser(
-            child: SizedBox(
-              height: 300,
-              width: double.infinity,
-              child: ListView.separated(
-                itemCount: value.all.length + 1,
-                itemBuilder: (context, index) {
-                  late Widget current;
-                  if (index == 0) {
-                    current = builderHeaders(context);
-                  } else {
-                    current = value.all[index - 1].build();
-                  }
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 12.0, horizontal: 24),
-                    child: current,
-                  );
-                },
-                separatorBuilder: (context, index) => Divider(
-                  height: 0,
-                  color: context.theme.dividerColor.withOpacity(0.1),
-                ),
+    return Consumer<StoryProvider>(
+      builder: (BuildContext context, StoryProvider value, Widget? child) {
+        return Unfocuser(
+          child: SizedBox(
+            height: 300,
+            width: double.infinity,
+            child: ListView.separated(
+              itemCount: value.all.length + 1,
+              itemBuilder: (context, index) {
+                late Widget current;
+                if (index == 0) {
+                  current = builderHeaders(context);
+                } else {
+                  current = value.all[index - 1].build();
+                }
+                return Padding(
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 12.0, horizontal: 24),
+                  child: current,
+                );
+              },
+              separatorBuilder: (context, index) => Divider(
+                height: 0,
+                color: context.theme.dividerColor.withOpacity(0.1),
               ),
             ),
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 }
