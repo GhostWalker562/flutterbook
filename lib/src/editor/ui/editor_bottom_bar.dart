@@ -122,8 +122,7 @@ class _BottomBarContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) =>
-          context.watch<CanvasDelegateProvider>().storyProvider,
+      create: (context) => context.read<CanvasDelegateProvider>().storyProvider,
       child: Consumer<StoryProvider>(
         builder: (BuildContext context, StoryProvider value, Widget? child) {
           return Unfocuser(
