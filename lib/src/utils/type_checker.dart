@@ -1,6 +1,7 @@
 //Imported from https://github.com/dart-lang/source_gen/blob/master/source_gen/lib/src/type_checker.dart#L243-L273
 // Since the classes uses mirrors and we needed to verify that the elements we are creating docs for are component states,
 // we ripped the code out and used the package as needed
+
 import 'dart:io';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/type.dart';
