@@ -34,7 +34,7 @@ class Storyboard extends StatelessWidget {
               componentName: 'Button',
               states: [
                 ComponentState(
-                   docs:  '''
+                  docs: '''
                     Button(onPressed: (), label: 'hello');
                   ''',
                   stateName: 'Primary',
@@ -70,17 +70,16 @@ class Storyboard extends StatelessWidget {
                   },
                 ),
                 ComponentState(
-                   docs:  '''
+                  docs: '''
                     IconButton(onPressed: ())
                   ''',
                   stateName: 'Secondary',
                   builder: (context, c) {
                     return Center(
-                      child: IconButton(
-                        icon: Icon(Icons.smartphone),
-                        onPressed: (){},
-                      )
-                    );
+                        child: IconButton(
+                      icon: Icon(Icons.smartphone),
+                      onPressed: () {},
+                    ));
                   },
                 ),
               ],
