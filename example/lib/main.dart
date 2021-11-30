@@ -69,6 +69,20 @@ class Storyboard extends StatelessWidget {
                     );
                   },
                 ),
+                ComponentState(
+                   docs:  '''
+                    IconButton(onPressed: ())
+                  ''',
+                  stateName: 'Secondary',
+                  builder: (context, c) {
+                    return Center(
+                      child: IconButton(
+                        icon: Icon(Icons.smartphone),
+                        onPressed: (){},
+                      )
+                    );
+                  },
+                ),
               ],
             ),
             Component(

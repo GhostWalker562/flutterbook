@@ -22,6 +22,11 @@ class Editor extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ComponentState? currentStory =
+        context.watch<CanvasDelegateProvider>().storyProvider?.currentStory;
+    StoryProvider? storyProvider =
+        context.watch<CanvasDelegateProvider>().storyProvider;
+
     return Container(
       decoration: BoxDecoration(
         boxShadow: [
@@ -108,6 +113,8 @@ class Editor extends StatelessWidget {
                                       child: Column(
                                     children: [
                                       ...state
+                                          .where((i) =>
+                                              i.parent == currentStory?.parent)
                                           .map(
                                             (item) => DocPanel(
                                               stateName: item.stateName,
