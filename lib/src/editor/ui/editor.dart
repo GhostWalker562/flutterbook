@@ -110,27 +110,29 @@ class Editor extends StatelessWidget {
                             : SingleChildScrollView(
                                 child: Center(
                                   child: Container(
-                                      child: Column(
-                                    children: [
-                                      ...state
-                                          .where((i) =>
-                                              i.parent == currentStory?.parent)
-                                          .map(
-                                            (item) => DocPanel(
-                                              stateName: item.stateName,
-                                              docs: item.docs,
-                                              component: item.builder(
-                                                context,
-                                                context
-                                                    .watch<
-                                                        CanvasDelegateProvider>()
-                                                    .storyProvider!,
+                                    child: Column(
+                                      children: [
+                                        ...state
+                                            .where((i) =>
+                                                i.parent ==
+                                                currentStory?.parent)
+                                            .map(
+                                              (item) => DocPanel(
+                                                stateName: item.stateName,
+                                                docs: item.docs,
+                                                component: item.builder(
+                                                  context,
+                                                  context
+                                                      .watch<
+                                                          CanvasDelegateProvider>()
+                                                      .storyProvider!,
+                                                ),
                                               ),
-                                            ),
-                                          )
-                                          .toList()
-                                    ],
-                                  )),
+                                            )
+                                            .toList()
+                                      ],
+                                    ),
+                                  ),
                                 ),
                               );
                       },
