@@ -103,13 +103,15 @@ class Editor extends StatelessWidget {
                                 },
                               )
                             : SingleChildScrollView(
-                              child: Center(
+                                child: Center(
                                   child: Container(
                                       child: Column(
                                     children: [
                                       ...state
                                           .map(
                                             (item) => DocPanel(
+                                              stateName: item.stateName,
+                                              docs: item.docs,
                                               component: item.builder(
                                                 context,
                                                 context
@@ -123,7 +125,7 @@ class Editor extends StatelessWidget {
                                     ],
                                   )),
                                 ),
-                            );
+                              );
                       },
                     )
                   ],

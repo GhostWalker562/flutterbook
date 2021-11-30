@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutterbook/flutterbook.dart';
-import 'package:flutterbook/src/navigation/models/organizers.dart' as fb;
 import 'package:flutterbook/src/routing/controls.dart';
 
 void main() {
@@ -34,7 +33,7 @@ void main() {
     });
 
     test('Category parent', () {
-      final category = fb.Category(
+      final category = Category(
         categoryName: 'My Category',
         organizers: [
           Folder(

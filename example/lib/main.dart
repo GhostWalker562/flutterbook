@@ -34,6 +34,9 @@ class Storyboard extends StatelessWidget {
               componentName: 'Button',
               states: [
                 ComponentState(
+                   docs:  '''
+                    Button(onPressed: (), label: 'hello');
+                  ''',
                   stateName: 'Primary',
                   builder: (context, c) {
                     return Center(

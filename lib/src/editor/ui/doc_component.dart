@@ -1,14 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:flutter_highlight/flutter_highlight.dart';
+import 'package:flutter_highlight/themes/atom-one-dark.dart';
+import 'package:flutterbook/src/editor/ui/copy_text.dart';
 import 'package:flutterbook/src/editor/ui/styled_icon_button.dart';
 import 'package:flutterbook/src/utils/extensions.dart';
 import 'package:flutterbook/src/utils/radii.dart';
 
 class DocPanel extends StatefulWidget {
   final Widget component;
+  final String? docs;
+  final String stateName;
+
   const DocPanel({
     Key? key,
     required this.component,
+    this.docs,
+    required this.stateName,
   }) : super(key: key);
 
   @override
@@ -44,8 +52,15 @@ class _DocPanelState extends State<DocPanel> {
     });
   }
 
+
+
   @override
   Widget build(BuildContext context) {
+     final TextStyle tabStyle = context.textTheme.subtitle1!.copyWith(
+      fontWeight: FontWeight.bold,
+      color: context.theme.hintColor,
+    );
+
     TransformationController _transformation = TransformationController();
     _transformation.value = Matrix4.identity()..scale(zoom);
     return Container(
@@ -68,6 +83,8 @@ class _DocPanelState extends State<DocPanel> {
             IntrinsicHeight(
               child: Row(
                 children: [
+                  Padding(padding: EdgeInsets.all(10), child: Text(widget.stateName, style: tabStyle),),
+                  VerticalDivider(),
                   StyledIconButton(
                     onPressed: zoomIn,
                     icon: FeatherIcons.zoomIn,
@@ -92,31 +109,39 @@ class _DocPanelState extends State<DocPanel> {
             Padding(
               padding: EdgeInsets.all(5),
               child: InteractiveViewer(
-                  panEnabled: true,
-                  boundaryMargin: EdgeInsets.all(double.infinity),
-                  transformationController: _transformation,
-                  child: widget.component),
-            ),
-            Align(
-              alignment: Alignment.bottomLeft,
-              child: TextButton(
-                child: Text(expanded ? "Show Code" : "Hide Code"),
-                onPressed: toggleExpansion,
+                panEnabled: true,
+                boundaryMargin: EdgeInsets.all(double.infinity),
+                transformationController: _transformation,
+                child: widget.component,
               ),
             ),
+            widget.docs != null
+                ? Align(
+                    alignment: Alignment.bottomLeft,
+                    child: Row(
+                      children: [
+                        TextButton(
+                          child: Text(expanded ? "Hide Code" : "Show Code"),
+                          onPressed: toggleExpansion,
+                        ),
+                        if (expanded)
+                          CopyText(
+                            textCopied: widget.docs!,
+                            textTooltip: 'Copy Code!',
+                          )
+                      ],
+                    ))
+                : Container(),
             expanded
                 ? Container(
-                    decoration: BoxDecoration(
-                      color: Colors.black,
-                      boxShadow: [
-                        BoxShadow(
-                          blurRadius: 8,
-                          color: context.theme.shadowColor.withOpacity(0.075),
-                        ),
-                      ],
-                      borderRadius: canvasBorderRadius,
+                    child: SingleChildScrollView(
+                    child: HighlightView(
+                      widget.docs!,
+                      padding: EdgeInsets.all(10),
+                      language: 'dart',
+                      theme: atomOneDarkTheme,
                     ),
-                  )
+                  ))
                 : Container(),
           ],
         ),
