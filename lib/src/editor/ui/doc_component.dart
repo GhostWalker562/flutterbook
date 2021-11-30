@@ -52,11 +52,9 @@ class _DocPanelState extends State<DocPanel> {
     });
   }
 
-
-
   @override
   Widget build(BuildContext context) {
-     final TextStyle tabStyle = context.textTheme.subtitle1!.copyWith(
+    final TextStyle tabStyle = context.textTheme.subtitle1!.copyWith(
       fontWeight: FontWeight.bold,
       color: context.theme.hintColor,
     );
@@ -83,7 +81,10 @@ class _DocPanelState extends State<DocPanel> {
             IntrinsicHeight(
               child: Row(
                 children: [
-                  Padding(padding: EdgeInsets.all(10), child: Text(widget.stateName, style: tabStyle),),
+                  Padding(
+                    padding: EdgeInsets.all(10),
+                    child: Text(widget.stateName, style: tabStyle),
+                  ),
                   VerticalDivider(),
                   StyledIconButton(
                     onPressed: zoomIn,
