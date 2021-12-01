@@ -91,32 +91,32 @@ class _CoreContentTabsState extends State<CoreContentTabs> {
             ),
           ),
           const TabsVerticalDivider(),
-          StyledIconButton(
+          StyledTextButton(
             onPressed: context.read<ZoomProvider>().zoomIn,
             icon: FeatherIcons.zoomIn,
           ),
           const SizedBox(width: 8),
-          StyledIconButton(
+          StyledTextButton(
             onPressed: context.read<ZoomProvider>().zoomOut,
             icon: FeatherIcons.zoomOut,
           ),
           const SizedBox(width: 8),
-          StyledIconButton(
+          StyledTextButton(
             onPressed: context.read<ZoomProvider>().resetZoom,
             icon: FeatherIcons.refreshCcw,
           ),
-          StyledIconButton(
+          StyledTextButton(
             onPressed: context.read<GridProvider>().toggleGrid,
             icon: FeatherIcons.grid,
           ),
           const TabsVerticalDivider(),
           const SizedBox(width: 8),
-          StyledIconButton(
+          StyledTextButton(
             onPressed: context.read<DarkThemeProvider>().toggleDarkTheme,
             icon: FeatherIcons.moon,
           ),
           const SizedBox(width: 8),
-          StyledIconButton(
+          StyledTextButton(
             onPressed: context.read<DevicePreviewProvider>().togglePreview,
             icon: FeatherIcons.smartphone,
           ),

@@ -67,7 +67,11 @@ class ComponentState {
     return path;
   }
 
-  ComponentState({required this.stateName, required this.builder, this.docs, });
+  ComponentState({
+    required this.stateName,
+    required this.builder,
+    this.docs,
+  });
   factory ComponentState.center(
           {required String stateName, required Widget child}) =>
       ComponentState(

@@ -86,17 +86,17 @@ class _DocPanelState extends State<DocPanel> {
                     child: Text(widget.stateName, style: tabStyle),
                   ),
                   VerticalDivider(),
-                  StyledIconButton(
+                  StyledTextButton(
                     onPressed: zoomIn,
                     icon: FeatherIcons.zoomIn,
                   ),
                   const SizedBox(width: 8),
-                  StyledIconButton(
+                  StyledTextButton(
                     onPressed: zoomOut,
                     icon: FeatherIcons.zoomOut,
                   ),
                   const SizedBox(width: 8),
-                  StyledIconButton(
+                  StyledTextButton(
                     onPressed: resetZoom,
                     icon: FeatherIcons.refreshCcw,
                   ),

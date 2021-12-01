@@ -24,8 +24,6 @@ class Editor extends StatelessWidget {
   Widget build(BuildContext context) {
     ComponentState? currentStory =
         context.watch<CanvasDelegateProvider>().storyProvider?.currentStory;
-    StoryProvider? storyProvider =
-        context.watch<CanvasDelegateProvider>().storyProvider;
 
     return Container(
       decoration: BoxDecoration(
@@ -74,67 +72,8 @@ class Editor extends StatelessWidget {
                             context.read<List<Category>>());
 
                         return model.tab == editor.FlutterBookTab.canvas
-                            ? Consumer<ZoomProvider>(
-                                builder: (context, model, child) {
-                                  TransformationController _transformation =
-                                      TransformationController();
-                                  _transformation.value = Matrix4.identity()
-                                    ..scale(model.zoom);
-                                  return context
-                                          .watch<DevicePreviewProvider>()
-                                          .show
-                                      ? DevicePreview(
-                                          builder: (context) {
-                                            return InteractiveViewer(
-                                              panEnabled: true,
-                                              boundaryMargin: EdgeInsets.all(
-                                                  double.infinity),
-                                              child: component ??
-                                                  const SizedBox.shrink(),
-                                              transformationController:
-                                                  _transformation,
-                                            );
-                                          },
-                                        )
-                                      : InteractiveViewer(
-                                          panEnabled: true,
-                                          boundaryMargin:
-                                              EdgeInsets.all(double.infinity),
-                                          transformationController:
-                                              _transformation,
-                                          child: component ??
-                                              const SizedBox.shrink(),
-                                        );
-                                },
-                              )
-                            : SingleChildScrollView(
-                                child: Center(
-                                  child: Container(
-                                    child: Column(
-                                      children: [
-                                        ...state
-                                            .where((i) =>
-                                                i.parent ==
-                                                currentStory?.parent)
-                                            .map(
-                                              (item) => DocPanel(
-                                                stateName: item.stateName,
-                                                docs: item.docs,
-                                                component: item.builder(
-                                                  context,
-                                                  context
-                                                      .watch<
-                                                          CanvasDelegateProvider>()
-                                                      .storyProvider!,
-                                                ),
-                                              ),
-                                            )
-                                            .toList()
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              );
+                            ? _Canvas(component)
+                            : _Doc(state, currentStory);
                       },
                     )
                   ],
@@ -149,6 +88,89 @@ class Editor extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+class _Canvas extends StatelessWidget {
+  Widget? component;
+  TransformationController _transformation = TransformationController();
+  _Canvas(this.component);
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<ZoomProvider>(
+      builder: (context, model, child) {
+        _transformation.value = Matrix4.identity()..scale(model.zoom);
+        return context.watch<DevicePreviewProvider>().show
+            ? _DevicePreviewCanvas(component, _transformation)
+            : _InteractiveViewerCanvas(component, _transformation);
+      },
+    );
+  }
+}
+
+class _DevicePreviewCanvas extends StatelessWidget {
+  final Widget? component;
+  final TransformationController controller;
+  _DevicePreviewCanvas(this.component, this.controller);
+  @override
+  Widget build(BuildContext context) {
+    return DevicePreview(
+      builder: (context) {
+        return InteractiveViewer(
+          panEnabled: true,
+          boundaryMargin: EdgeInsets.all(double.infinity),
+          child: component ?? const SizedBox.shrink(),
+          transformationController: controller,
+        );
+      },
+    );
+  }
+}
+
+class _Doc extends StatelessWidget {
+  List<ComponentState> states;
+  ComponentState? currentState;
+  _Doc(this.states, this.currentState);
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      child: Center(
+        child: Container(
+          child: Column(
+            children: [
+              ...states
+                  .where((i) => i.parent == currentState?.parent)
+                  .map(
+                    (item) => DocPanel(
+                      stateName: item.stateName,
+                      docs: item.docs,
+                      component: item.builder(
+                        context,
+                        context.watch<CanvasDelegateProvider>().storyProvider!,
+                      ),
+                    ),
+                  )
+                  .toList()
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _InteractiveViewerCanvas extends StatelessWidget {
+  final Widget? component;
+  final TransformationController controller;
+  _InteractiveViewerCanvas(this.component, this.controller);
+  @override
+  Widget build(BuildContext context) {
+    return InteractiveViewer(
+      panEnabled: true,
+      boundaryMargin: EdgeInsets.all(double.infinity),
+      transformationController: controller,
+      child: component ?? const SizedBox.shrink(),
     );
   }
 }
