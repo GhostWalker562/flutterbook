@@ -1,11 +1,13 @@
+import 'dart:developer';
+
+import 'dart:html' as webFile;
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
-import 'package:flutter_highlight/flutter_highlight.dart';
-import 'package:flutter_highlight/themes/atom-one-dark.dart';
 import 'package:flutterbook/src/editor/ui/copy_text.dart';
 import 'package:flutterbook/src/editor/ui/styled_icon_button.dart';
 import 'package:flutterbook/src/utils/extensions.dart';
 import 'package:flutterbook/src/utils/radii.dart';
+
 
 class DocPanel extends StatefulWidget {
   final Widget component;
@@ -55,25 +57,26 @@ class _DocPanelState extends State<DocPanel> {
   @override
   Widget build(BuildContext context) {
     final TextStyle tabStyle = Theme.of(context).textTheme.subtitle1!.copyWith(
-          color: context.theme.hintColor,
           fontWeight: FontWeight.bold,
+          color: context.theme.hintColor,
         );
+      var element = widget.component;
 
     TransformationController _transformation = TransformationController();
     _transformation.value = Matrix4.identity()..scale(zoom);
     return Container(
+      width: 900,
       decoration: BoxDecoration(
-        borderRadius: canvasBorderRadius,
         boxShadow: [
           BoxShadow(
             blurRadius: 8,
             color: context.theme.shadowColor.withOpacity(0.075),
           ),
         ],
+        borderRadius: canvasBorderRadius,
         color: context.colorScheme.surface,
       ),
       margin: const EdgeInsets.fromLTRB(0, 12, 12, 12),
-      width: 900,
       child: IntrinsicHeight(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -87,13 +90,13 @@ class _DocPanelState extends State<DocPanel> {
                   ),
                   VerticalDivider(),
                   StyledTextButton(
-                    icon: FeatherIcons.zoomIn,
                     onPressed: zoomIn,
+                    icon: FeatherIcons.zoomIn,
                   ),
                   const SizedBox(width: 8),
                   StyledTextButton(
-                    icon: FeatherIcons.zoomOut,
                     onPressed: zoomOut,
+                    icon: FeatherIcons.zoomOut,
                   ),
                   const SizedBox(width: 8),
                   StyledTextButton(
@@ -110,8 +113,8 @@ class _DocPanelState extends State<DocPanel> {
             Padding(
               padding: EdgeInsets.all(5),
               child: InteractiveViewer(
-                boundaryMargin: EdgeInsets.all(double.infinity),
                 panEnabled: true,
+                boundaryMargin: EdgeInsets.all(double.infinity),
                 transformationController: _transformation,
                 child: widget.component,
               ),
@@ -122,8 +125,8 @@ class _DocPanelState extends State<DocPanel> {
                     child: Row(
                       children: [
                         TextButton(
-                          onPressed: toggleExpansion,
                           child: Text(expanded ? 'Hide Code' : 'Show Code'),
+                          onPressed: toggleExpansion,
                         ),
                         if (expanded)
                           CopyText(
@@ -136,12 +139,12 @@ class _DocPanelState extends State<DocPanel> {
             expanded
                 ? Container(
                     child: SingleChildScrollView(
-                    child: HighlightView(
-                      widget.docs!,
-                      language: 'dart',
-                      padding: EdgeInsets.all(10),
-                      theme: atomOneDarkTheme,
-                    ),
+                    // child: HighlightView(
+                    //   widget.docs!,
+                    //   padding: EdgeInsets.all(10),
+                    //   language: 'dart',
+                    //   theme: atomOneDarkTheme,
+                    // ),
                   ))
                 : SizedBox.shrink(),
           ],

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutterbook/src/editor/providers/device_preview_provider.dart';
 import 'package:flutterbook/src/editor/providers/tab_provider.dart';
 import 'package:flutterbook/src/editor/ui/doc_component.dart';
+import 'package:flutterbook/src/editor/ui/doc_component_2.dart';
 import 'package:flutterbook/src/routing/router.dart';
 import 'package:provider/provider.dart';
 
@@ -134,25 +135,24 @@ class _Doc extends StatelessWidget {
   _Doc(this.states, this.currentState);
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Center(
-        child: Column(
-          children: [
-            ...states
-                .where((i) => i.parent == currentState?.parent)
-                .map(
-                  (item) => DocPanel(
-                    stateName: item.stateName,
-                    docs: item.docs,
-                    component: item.builder(
-                      context,
-                      context.watch<CanvasDelegateProvider>().storyProvider!,
-                    ),
+    return Center(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          ...states
+              .where((i) => i.parent == currentState?.parent)
+              .map(
+                (item) => DocPanel2(
+                  stateName: item.stateName,
+                  docs: item.docs,
+                  component: item.builder(
+                    context,
+                    context.watch<CanvasDelegateProvider>().storyProvider!,
                   ),
-                )
-                .toList()
-          ],
-        ),
+                ),
+              )
+              .toList()
+        ],
       ),
     );
   }
