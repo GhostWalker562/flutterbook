@@ -12,13 +12,16 @@ class StyledTextButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-        onTap: onPressed,
-        borderRadius: BorderRadius.circular(90),
-        child: Icon(
-          icon,
-          color: Theme.of(context).hintColor,
-          size: 16,
-        ));
+    return Padding(
+      padding: const EdgeInsets.all(12),
+      child: InkWell(
+          onTap: onPressed,
+          borderRadius: BorderRadius.circular(90),
+          child: Icon(
+            icon,
+            color: Theme.of(context).hintColor,
+            size: 16,
+          )),
+    );
   }
 }
