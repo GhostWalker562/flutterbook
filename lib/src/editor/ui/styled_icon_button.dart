@@ -17,7 +17,7 @@ class StyledTextButton extends StatelessWidget {
         borderRadius: BorderRadius.circular(90),
         child: Icon(
           icon,
-          color: context.theme.hintColor,
+          color: Theme.of(context).hintColor,
           size: 16,
         ));
   }

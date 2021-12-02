@@ -54,10 +54,10 @@ class _DocPanelState extends State<DocPanel> {
 
   @override
   Widget build(BuildContext context) {
-    final TextStyle tabStyle = context.textTheme.subtitle1!.copyWith(
-      fontWeight: FontWeight.bold,
-      color: context.theme.hintColor,
-    );
+    final TextStyle tabStyle = Theme.of(context).textTheme.subtitle1!.copyWith(
+          fontWeight: FontWeight.bold,
+          color: context.theme.hintColor,
+        );
 
     TransformationController _transformation = TransformationController();
     _transformation.value = Matrix4.identity()..scale(zoom);
@@ -132,7 +132,7 @@ class _DocPanelState extends State<DocPanel> {
                           )
                       ],
                     ))
-                : Container(),
+                : SizedBox.shrink(),
             expanded
                 ? Container(
                     child: SingleChildScrollView(
@@ -143,7 +143,7 @@ class _DocPanelState extends State<DocPanel> {
                       theme: atomOneDarkTheme,
                     ),
                   ))
-                : Container(),
+                : SizedBox.shrink(),
           ],
         ),
       ),

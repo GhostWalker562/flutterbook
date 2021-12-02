@@ -136,24 +136,22 @@ class _Doc extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Center(
-        child: Container(
-          child: Column(
-            children: [
-              ...states
-                  .where((i) => i.parent == currentState?.parent)
-                  .map(
-                    (item) => DocPanel(
-                      stateName: item.stateName,
-                      docs: item.docs,
-                      component: item.builder(
-                        context,
-                        context.watch<CanvasDelegateProvider>().storyProvider!,
-                      ),
+        child: Column(
+          children: [
+            ...states
+                .where((i) => i.parent == currentState?.parent)
+                .map(
+                  (item) => DocPanel(
+                    stateName: item.stateName,
+                    docs: item.docs,
+                    component: item.builder(
+                      context,
+                      context.watch<CanvasDelegateProvider>().storyProvider!,
                     ),
-                  )
-                  .toList()
-            ],
-          ),
+                  ),
+                )
+                .toList()
+          ],
         ),
       ),
     );
