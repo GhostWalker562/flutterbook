@@ -118,9 +118,9 @@ class _DevicePreviewCanvas extends StatelessWidget {
     return DevicePreview(
       builder: (context) {
         return InteractiveViewer(
-          panEnabled: true,
           boundaryMargin: EdgeInsets.all(double.infinity),
           child: component ?? const SizedBox.shrink(),
+          panEnabled: true,
           transformationController: controller,
         );
       },
@@ -165,10 +165,10 @@ class _InteractiveViewerCanvas extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InteractiveViewer(
-      panEnabled: true,
       boundaryMargin: EdgeInsets.all(double.infinity),
-      transformationController: controller,
       child: component ?? const SizedBox.shrink(),
+      panEnabled: true,
+      transformationController: controller,
     );
   }
 }
