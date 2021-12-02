@@ -62,7 +62,6 @@ class _DocPanelState extends State<DocPanel> {
     TransformationController _transformation = TransformationController();
     _transformation.value = Matrix4.identity()..scale(zoom);
     return Container(
-      width: 900,
       decoration: BoxDecoration(
         boxShadow: [
           BoxShadow(
@@ -74,6 +73,7 @@ class _DocPanelState extends State<DocPanel> {
         color: context.colorScheme.surface,
       ),
       margin: const EdgeInsets.fromLTRB(0, 12, 12, 12),
+      width: 900,
       child: IntrinsicHeight(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
