@@ -1,3 +1,4 @@
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterbook/flutterbook.dart';
@@ -34,6 +35,9 @@ class Storyboard extends StatelessWidget {
               componentName: 'Button',
               states: [
                 ComponentState(
+                  docs: '''
+                    Button(onPressed: () {}, label: 'hello');
+                  ''',
                   stateName: 'Primary',
                   builder: (context, c) {
                     return Center(
@@ -64,6 +68,19 @@ class Storyboard extends StatelessWidget {
                         ),
                       ),
                     );
+                  },
+                ),
+                ComponentState(
+                  docs: '''
+                    IconButton(onPressed: () {}, icon: Icon())
+                  ''',
+                  stateName: 'Secondary',
+                  builder: (context, c) {
+                    return Center(
+                        child: IconButton(
+                      icon: Icon(Icons.smartphone),
+                      onPressed: () {},
+                    ));
                   },
                 ),
               ],
