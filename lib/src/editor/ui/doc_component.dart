@@ -138,8 +138,8 @@ class _DocPanelState extends State<DocPanel> {
                     child: SingleChildScrollView(
                     child: HighlightView(
                       widget.docs!,
-                      padding: EdgeInsets.all(10),
                       language: 'dart',
+                      padding: EdgeInsets.all(10),
                       theme: atomOneDarkTheme,
                     ),
                   ))
