@@ -63,13 +63,13 @@ class _DocPanelState extends State<DocPanel> {
     _transformation.value = Matrix4.identity()..scale(zoom);
     return Container(
       decoration: BoxDecoration(
+        borderRadius: canvasBorderRadius,
         boxShadow: [
           BoxShadow(
             blurRadius: 8,
             color: context.theme.shadowColor.withOpacity(0.075),
           ),
         ],
-        borderRadius: canvasBorderRadius,
         color: context.colorScheme.surface,
       ),
       margin: const EdgeInsets.fromLTRB(0, 12, 12, 12),
