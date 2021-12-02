@@ -122,8 +122,8 @@ class _DocPanelState extends State<DocPanel> {
                     child: Row(
                       children: [
                         TextButton(
-                          child: Text(expanded ? 'Hide Code' : 'Show Code'),
                           onPressed: toggleExpansion,
+                          child: Text(expanded ? 'Hide Code' : 'Show Code'),
                         ),
                         if (expanded)
                           CopyText(
