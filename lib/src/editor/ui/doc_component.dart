@@ -87,8 +87,8 @@ class _DocPanelState extends State<DocPanel> {
                   ),
                   VerticalDivider(),
                   StyledTextButton(
-                    onPressed: zoomIn,
                     icon: FeatherIcons.zoomIn,
+                    onPressed: zoomIn,
                   ),
                   const SizedBox(width: 8),
                   StyledTextButton(
