@@ -110,8 +110,8 @@ class _DocPanelState extends State<DocPanel> {
             Padding(
               padding: EdgeInsets.all(5),
               child: InteractiveViewer(
-                panEnabled: true,
                 boundaryMargin: EdgeInsets.all(double.infinity),
+                panEnabled: true,
                 transformationController: _transformation,
                 child: widget.component,
               ),
