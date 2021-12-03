@@ -144,7 +144,7 @@ class _Doc extends StatelessWidget {
               .map(
                 (item) => DocPanel2(
                   stateName: item.stateName,
-                  docs: item.docs,
+                  docName: item.docName,
                   component: item.builder(
                     context,
                     context.watch<CanvasDelegateProvider>().storyProvider!,

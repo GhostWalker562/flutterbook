@@ -46,7 +46,7 @@ and</li>
 <li>any ambient state obtained from the <code>context</code> using
 <a href="https://api.flutter.dev/flutter/widgets/BuildContext/dependOnInheritedWidgetOfExactType.html">BuildContext.dependOnInheritedWidgetOfExactType</a>.</li>
 </ul>
-<p>If a widget's <a href="../../test_component/TestComponent/build.md">build</a> method is to depend on anything else, use a
+<p>If a widget's <a href="../../list_example/ListExample/build.md">build</a> method is to depend on anything else, use a
 <a href="https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html">StatefulWidget</a> instead.</p>
 <p>See also:</p>
 <ul>
@@ -60,12 +60,19 @@ and</li>
 ```dart
 @override
 Widget build(BuildContext context) {
-  // TODO: implement build
-  return Center(
-      child: IconButton(
-    icon: Icon(Icons.smartphone),
-    onPressed: () {},
-  ));
+  return Container(
+    width: 400,
+    height: 400,
+    color: Colors.white,
+    child: ListView.builder(
+      itemCount: 10,
+      itemBuilder: (_, i) => Container(
+        width: 400,
+        height: 100,
+        color: (i % 2 == 0) ? Colors.red : Colors.grey,
+      ),
+    ),
+  );
 }
 ```
 

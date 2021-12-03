@@ -1,3 +1,4 @@
+import 'package:example/list_example.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterbook/flutterbook.dart';
@@ -72,21 +73,10 @@ class Storyboard extends StatelessWidget {
               componentName: 'List',
               states: [
                 ComponentState(
+                  docName: 'ListExample',
                   stateName: 'Primary',
                   builder: (context, c) {
-                    return Container(
-                      width: 400,
-                      height: 400,
-                      color: Colors.white,
-                      child: ListView.builder(
-                        itemCount: 10,
-                        itemBuilder: (_, i) => Container(
-                          width: 400,
-                          height: 100,
-                          color: (i % 2 == 0) ? Colors.red : Colors.grey,
-                        ),
-                      ),
-                    );
+                    return ListExample();
                   },
                 ),
               ],
