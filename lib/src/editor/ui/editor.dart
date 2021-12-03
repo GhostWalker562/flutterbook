@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutterbook/src/editor/providers/device_preview_provider.dart';
 import 'package:flutterbook/src/editor/providers/tab_provider.dart';
 import 'package:flutterbook/src/editor/ui/doc_component.dart';
-import 'package:flutterbook/src/editor/ui/doc_component_2.dart';
 import 'package:flutterbook/src/routing/router.dart';
 import 'package:provider/provider.dart';
 
@@ -72,9 +71,13 @@ class Editor extends StatelessWidget {
                         List<ComponentState> state = recursiveRetrievalOfStates(
                             context.read<List<Category>>());
 
-                        return model.tab == editor.FlutterBookTab.canvas
-                            ? _Canvas(component)
-                            : _Doc(state, currentStory);
+                        Widget element =
+                            model.tab == editor.FlutterBookTab.canvas
+                                ? _Canvas(component)
+                                : SingleChildScrollView(
+                                    child: _Doc(state, currentStory),
+                                  );
+                        return element;
                       },
                     )
                   ],
@@ -94,13 +97,13 @@ class Editor extends StatelessWidget {
 }
 
 class _Canvas extends StatelessWidget {
-  Widget? component;
-  TransformationController _transformation = TransformationController();
+  final Widget? component;
   _Canvas(this.component);
   @override
   Widget build(BuildContext context) {
     return Consumer<ZoomProvider>(
       builder: (context, model, child) {
+        TransformationController _transformation = TransformationController();
         _transformation.value = Matrix4.identity()..scale(model.zoom);
         return context.watch<DevicePreviewProvider>().show
             ? _DevicePreviewCanvas(component, _transformation)
@@ -130,30 +133,30 @@ class _DevicePreviewCanvas extends StatelessWidget {
 }
 
 class _Doc extends StatelessWidget {
-  List<ComponentState> states;
-  ComponentState? currentState;
+  final List<ComponentState> states;
+  final ComponentState? currentState;
+
   _Doc(this.states, this.currentState);
+
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          ...states
-              .where((i) => i.parent == currentState?.parent)
-              .map(
-                (item) => DocPanel2(
-                  stateName: item.stateName,
-                  docName: item.docName,
-                  component: item.builder(
-                    context,
-                    context.watch<CanvasDelegateProvider>().storyProvider!,
-                  ),
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        ...states
+            .where((i) => i.parent == currentState?.parent)
+            .map(
+              (item) => DocPanel(
+                docName: item.docName,
+                component: item.builder(
+                  context,
+                  context.watch<CanvasDelegateProvider>().storyProvider!,
                 ),
-              )
-              .toList()
-        ],
-      ),
+                stateName: item.stateName,
+              ),
+            )
+            .toList()
+      ],
     );
   }
 }

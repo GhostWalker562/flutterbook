@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutterbook/src/utils/extensions.dart';
 
 class StyledTextButton extends StatelessWidget {
   final IconData icon;
