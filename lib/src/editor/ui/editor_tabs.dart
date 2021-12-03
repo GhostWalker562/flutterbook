@@ -37,7 +37,8 @@ class _CoreContentTabsState extends State<CoreContentTabs> {
         children: [
           TextButton(
             onPressed: () => {
-              Provider.of<TabProvider>(context, listen: false).setTab(FlutterBookTab.canvas)
+              Provider.of<TabProvider>(context, listen: false)
+                  .setTab(FlutterBookTab.canvas)
             },
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 200),
@@ -45,10 +46,10 @@ class _CoreContentTabsState extends State<CoreContentTabs> {
                 border: Border(
                   bottom: BorderSide(
                     color: context.colorScheme.primary,
-                    style:
-                        context.watch<TabProvider>().tab == FlutterBookTab.canvas
-                            ? BorderStyle.solid
-                            : BorderStyle.none,
+                    style: context.watch<TabProvider>().tab ==
+                            FlutterBookTab.canvas
+                        ? BorderStyle.solid
+                        : BorderStyle.none,
                     width: 3,
                   ),
                 ),
@@ -64,8 +65,10 @@ class _CoreContentTabsState extends State<CoreContentTabs> {
             ),
           ),
           TextButton(
-            onPressed: () =>
-                {Provider.of<TabProvider>(context, listen: false).setTab(FlutterBookTab.docs)},
+            onPressed: () => {
+              Provider.of<TabProvider>(context, listen: false)
+                  .setTab(FlutterBookTab.docs)
+            },
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 200),
               decoration: BoxDecoration(
@@ -91,34 +94,41 @@ class _CoreContentTabsState extends State<CoreContentTabs> {
             ),
           ),
           const TabsVerticalDivider(),
-          StyledTextButton(
-            onPressed: context.read<ZoomProvider>().zoomIn,
-            icon: FeatherIcons.zoomIn,
-          ),
-          const SizedBox(width: 8),
-          StyledTextButton(
-            onPressed: context.read<ZoomProvider>().zoomOut,
-            icon: FeatherIcons.zoomOut,
-          ),
-          const SizedBox(width: 8),
-          StyledTextButton(
-            onPressed: context.read<ZoomProvider>().resetZoom,
-            icon: FeatherIcons.refreshCcw,
-          ),
-          StyledTextButton(
-            onPressed: context.read<GridProvider>().toggleGrid,
-            icon: FeatherIcons.grid,
-          ),
-          const TabsVerticalDivider(),
-          const SizedBox(width: 8),
+          context.read<TabProvider>().tab == FlutterBookTab.canvas
+              ? Row(
+                  children: [
+                    StyledTextButton(
+                      onPressed: context.read<ZoomProvider>().zoomIn,
+                      icon: FeatherIcons.zoomIn,
+                    ),
+                    const SizedBox(width: 8),
+                    StyledTextButton(
+                      onPressed: context.read<ZoomProvider>().zoomOut,
+                      icon: FeatherIcons.zoomOut,
+                    ),
+                    const SizedBox(width: 8),
+                    StyledTextButton(
+                      onPressed: context.read<ZoomProvider>().resetZoom,
+                      icon: FeatherIcons.refreshCcw,
+                    ),
+                    StyledTextButton(
+                      onPressed: context.read<GridProvider>().toggleGrid,
+                      icon: FeatherIcons.grid,
+                    ),
+                    const TabsVerticalDivider(),
+                    const SizedBox(width: 8),
+                    StyledTextButton(
+                      onPressed:
+                          context.read<DevicePreviewProvider>().togglePreview,
+                      icon: FeatherIcons.smartphone,
+                    ),
+                    const SizedBox(width: 8),
+                  ],
+                )
+              : SizedBox.shrink(),
           StyledTextButton(
             onPressed: context.read<DarkThemeProvider>().toggleDarkTheme,
             icon: FeatherIcons.moon,
-          ),
-          const SizedBox(width: 8),
-          StyledTextButton(
-            onPressed: context.read<DevicePreviewProvider>().togglePreview,
-            icon: FeatherIcons.smartphone,
           ),
         ],
       ),
