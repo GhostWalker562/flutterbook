@@ -73,15 +73,17 @@ class ComponentState {
     this.docName,
   });
   factory ComponentState.center(
-          {required String stateName, required Widget child}) =>
+          {required String stateName, required Widget child, String? docName}) =>
       ComponentState(
         stateName: stateName,
+        docName: docName,
         builder: (_, __) => Center(child: child),
       );
   factory ComponentState.child(
-          {required String stateName, required Widget child}) =>
+          {required String stateName, required Widget child, String? docName}) =>
       ComponentState(
         stateName: stateName,
+        docName: docName,
         builder: (_, __) => child,
       );
 }
