@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:markdown/markdown.dart' as md;
-import 'package:recase/recase.dart';
 
 class DocMarkDown extends StatefulWidget {
-  final String? docName;
+  final String? docPath;
 
   const DocMarkDown({
     Key? key,
-    this.docName,
+    this.docPath,
   }) : super(key: key);
 
   @override
@@ -30,11 +29,11 @@ If you are seeing this message, that means you have not generated docs for this 
  The --input is the path to your root directory in your project
  The --output is the path in your project where the assets need to stay
  - run dartdoc --format md --input "my_fake_project" --output "my_fake_project/assets/lib/docs"
- - create a component and add it to your component state with a attribute ***docName***
+ - create a component and add it to your component state with a attribute ***docPath***
 """;
-
+    Future.value(() => { _markdownData });
     return FutureBuilder(
-      future: loadAsset(context, widget.docName),
+      future: loadAsset(context, widget.docPath),
       initialData: _markdownData,
       builder: (BuildContext context, AsyncSnapshot<String> text) {
         return Tooltip(
@@ -63,8 +62,6 @@ If you are seeing this message, that means you have not generated docs for this 
   }
 }
 
-Future<String> loadAsset(context, docName) async {
-  ReCase doc = new ReCase(docName);
-  final docNameSnake = doc.snakeCase;
-  return await rootBundle.loadString("doc/$docNameSnake/$docName/$docName.md");
+Future<String> loadAsset(context, docPath) async {
+  return await rootBundle.loadString("doc/$docPath.md");
 }

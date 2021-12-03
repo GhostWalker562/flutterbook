@@ -53,7 +53,7 @@ class Component extends Organizer {
 
 class ComponentState {
   final String stateName;
-  final String? docName;
+  final String? docPath;
   final Widget Function(BuildContext, ControlsInterface) builder;
   Component? parent;
 
@@ -70,20 +70,20 @@ class ComponentState {
   ComponentState({
     required this.stateName,
     required this.builder,
-    this.docName,
+    this.docPath,
   });
   factory ComponentState.center(
           {required String stateName, required Widget child, String? docName}) =>
       ComponentState(
         stateName: stateName,
-        docName: docName,
+        docPath: docName,
         builder: (_, __) => Center(child: child),
       );
   factory ComponentState.child(
           {required String stateName, required Widget child, String? docName}) =>
       ComponentState(
         stateName: stateName,
-        docName: docName,
+        docPath: docName,
         builder: (_, __) => child,
       );
 }

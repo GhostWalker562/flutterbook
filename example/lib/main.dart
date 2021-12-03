@@ -73,7 +73,7 @@ class Storyboard extends StatelessWidget {
               componentName: 'List',
               states: [
                 ComponentState(
-                  docName: 'ListExample',
+                  docPath: 'list_example/ListExample/ListExample',
                   stateName: 'Primary',
                   builder: (context, c) {
                     return ListExample();

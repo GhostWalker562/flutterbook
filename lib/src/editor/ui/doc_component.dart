@@ -7,13 +7,13 @@ import 'package:flutterbook/src/utils/radii.dart';
 
 class DocPanel extends StatefulWidget {
   final Widget component;
-  final String? docName;
+  final String? docPath;
   final String stateName;
 
   const DocPanel({
     Key? key,
     required this.component,
-    this.docName,
+    this.docPath,
     required this.stateName,
   }) : super(key: key);
 
@@ -124,7 +124,7 @@ class _DocPanelState extends State<DocPanel> {
                       expanded
                           ? SizedBox(
                               height: 400,
-                              child: DocMarkDown(docName: widget.docName),
+                              child: DocMarkDown(docPath: widget.docPath),
                             )
                           : SizedBox.shrink()
                     ],
