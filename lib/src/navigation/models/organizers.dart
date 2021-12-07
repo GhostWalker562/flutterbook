@@ -53,7 +53,7 @@ class Component extends Organizer {
 
 class ComponentState {
   final String stateName;
-  final String? markdown;
+  final Future<String>? markdown;
   final Widget Function(BuildContext, ControlsInterface) builder;
   Component? parent;
 
@@ -73,14 +73,14 @@ class ComponentState {
     this.markdown,
   });
   factory ComponentState.center(
-          {required String stateName, required Widget child, String? markdown}) =>
+          {required String stateName, required Widget child, Future<String>? markdown}) =>
       ComponentState(
         stateName: stateName,
         markdown: markdown,
         builder: (_, __) => Center(child: child),
       );
   factory ComponentState.child(
-          {required String stateName, required Widget child, String? markdown}) =>
+          {required String stateName, required Widget child, Future<String>? markdown}) =>
       ComponentState(
         stateName: stateName,
         markdown: markdown,
