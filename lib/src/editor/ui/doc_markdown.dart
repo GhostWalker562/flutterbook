@@ -15,19 +15,11 @@ class DocMarkDown extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = ScrollController();
 
-    return Tooltip(
-      message: "Click To Copy",
-      child: Markdown(
-        selectable: true,
-        controller: controller,
-        data: markdown ?? DEFAULT_MARKDOWN,
-        shrinkWrap: true,
-        onTapText: () => {
-          Clipboard.setData(ClipboardData(text: markdown ?? "")).then((value) =>
-              ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text('Copied to your clipboard !'))))
-        },
-      ),
+    return Markdown(
+      selectable: true,
+      controller: controller,
+      data: markdown ?? DEFAULT_MARKDOWN,
+      shrinkWrap: true,
     );
   }
 }
