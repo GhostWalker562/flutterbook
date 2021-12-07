@@ -1,67 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
-import 'package:markdown/markdown.dart' as md;
+import 'package:flutterbook/src/shared/const.dart';
 
-class DocMarkDown extends StatefulWidget {
-  final String? docPath;
+class DocMarkDown extends StatelessWidget {
+  final String? markdown;
 
   const DocMarkDown({
     Key? key,
-    this.docPath,
+    this.markdown,
   }) : super(key: key);
 
   @override
-  _DocMarkDownState createState() => _DocMarkDownState();
-}
-
-class _DocMarkDownState extends State<DocMarkDown> {
-  @override
   Widget build(BuildContext context) {
     final controller = ScrollController();
-    const String _markdownData = """
-## Could Not Find Doc For Documents
 
-If you are seeing this message, that means you have not generated docs for this component
-
-### Create Docs For Component
- - add the latest version of dartdoc to your pubspec.yaml
- The --input is the path to your root directory in your project
- The --output is the path in your project where the assets need to stay
- - run dartdoc --format md --input "my_fake_project" --output "my_fake_project/assets/lib/docs"
- - create a component and add it to your component state with a attribute ***docPath***
-""";
-    Future.value(() => { _markdownData });
-    return FutureBuilder(
-      future: loadAsset(context, widget.docPath),
-      initialData: _markdownData,
-      builder: (BuildContext context, AsyncSnapshot<String> text) {
-        return Tooltip(
-          message: "Click To Copy",
-          child: Markdown(
-            selectable: true,
-            controller: controller,
-            data: text.data ?? _markdownData,
-            shrinkWrap: true,
-            extensionSet: md.ExtensionSet(
-              md.ExtensionSet.gitHubFlavored.blockSyntaxes,
-              [
-                md.EmojiSyntax(),
-                ...md.ExtensionSet.gitHubFlavored.inlineSyntaxes
-              ],
-            ),
-            onTapText: () => {
-              Clipboard.setData(ClipboardData(text: text.data ?? "")).then(
-                  (value) => ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('Copied to your clipboard !'))))
-            },
-          ),
-        );
-      },
+    return Tooltip(
+      message: "Click To Copy",
+      child: Markdown(
+        selectable: true,
+        controller: controller,
+        data: markdown ?? DEFAULT_MARKDOWN,
+        shrinkWrap: true,
+        onTapText: () => {
+          Clipboard.setData(ClipboardData(text: markdown ?? "")).then((value) =>
+              ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text('Copied to your clipboard !'))))
+        },
+      ),
     );
   }
-}
-
-Future<String> loadAsset(context, docPath) async {
-  return await rootBundle.loadString("doc/$docPath.md");
 }
