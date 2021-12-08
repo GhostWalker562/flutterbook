@@ -92,8 +92,8 @@ class _DocPanelState extends State<DocPanel> {
               ),
               const SizedBox(width: 8),
               StyledTextButton(
-                onPressed: resetZoom,
                 icon: FeatherIcons.refreshCcw,
+                onPressed: resetZoom,
               ),
             ],
           ),
