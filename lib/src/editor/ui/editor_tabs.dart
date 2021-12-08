@@ -36,10 +36,8 @@ class _CoreContentTabsState extends State<CoreContentTabs> {
       child: Row(
         children: [
           TextButton(
-            onPressed: () => {
-              Provider.of<TabProvider>(context, listen: false)
-                  .setTab(FlutterBookTab.canvas)
-            },
+            onPressed: () => Provider.of<TabProvider>(context, listen: false)
+                .setTab(FlutterBookTab.canvas),
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 200),
               decoration: BoxDecoration(
@@ -65,10 +63,8 @@ class _CoreContentTabsState extends State<CoreContentTabs> {
             ),
           ),
           TextButton(
-            onPressed: () => {
-              Provider.of<TabProvider>(context, listen: false)
-                  .setTab(FlutterBookTab.docs)
-            },
+            onPressed: () => Provider.of<TabProvider>(context, listen: false)
+                .setTab(FlutterBookTab.docs),
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 200),
               decoration: BoxDecoration(
@@ -94,44 +90,49 @@ class _CoreContentTabsState extends State<CoreContentTabs> {
             ),
           ),
           const TabsVerticalDivider(),
-          context.read<TabProvider>().tab == FlutterBookTab.canvas
-              ? Row(
-                  children: [
-                    StyledTextButton(
-                      onPressed: context.read<ZoomProvider>().zoomIn,
-                      icon: FeatherIcons.zoomIn,
-                    ),
-                    const SizedBox(width: 8),
-                    StyledTextButton(
-                      onPressed: context.read<ZoomProvider>().zoomOut,
-                      icon: FeatherIcons.zoomOut,
-                    ),
-                    const SizedBox(width: 8),
-                    StyledTextButton(
-                      onPressed: context.read<ZoomProvider>().resetZoom,
-                      icon: FeatherIcons.refreshCcw,
-                    ),
-                    StyledTextButton(
-                      onPressed: context.read<GridProvider>().toggleGrid,
-                      icon: FeatherIcons.grid,
-                    ),
-                    const TabsVerticalDivider(),
-                    const SizedBox(width: 8),
-                    StyledTextButton(
-                      onPressed:
-                          context.read<DevicePreviewProvider>().togglePreview,
-                      icon: FeatherIcons.smartphone,
-                    ),
-                    const SizedBox(width: 8),
-                  ],
-                )
-              : SizedBox.shrink(),
+          if (context.read<TabProvider>().tab == FlutterBookTab.canvas)
+            _CanvasTabs(),
           StyledTextButton(
             onPressed: context.read<DarkThemeProvider>().toggleDarkTheme,
             icon: FeatherIcons.moon,
           ),
         ],
       ),
+    );
+  }
+}
+
+class _CanvasTabs extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        StyledTextButton(
+          onPressed: context.read<ZoomProvider>().zoomIn,
+          icon: FeatherIcons.zoomIn,
+        ),
+        const SizedBox(width: 8),
+        StyledTextButton(
+          onPressed: context.read<ZoomProvider>().zoomOut,
+          icon: FeatherIcons.zoomOut,
+        ),
+        const SizedBox(width: 8),
+        StyledTextButton(
+          onPressed: context.read<ZoomProvider>().resetZoom,
+          icon: FeatherIcons.refreshCcw,
+        ),
+        StyledTextButton(
+          onPressed: context.read<GridProvider>().toggleGrid,
+          icon: FeatherIcons.grid,
+        ),
+        const TabsVerticalDivider(),
+        const SizedBox(width: 8),
+        StyledTextButton(
+          onPressed: context.read<DevicePreviewProvider>().togglePreview,
+          icon: FeatherIcons.smartphone,
+        ),
+        const SizedBox(width: 8),
+      ],
     );
   }
 }

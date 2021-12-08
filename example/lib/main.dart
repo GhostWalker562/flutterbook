@@ -1,4 +1,5 @@
 import 'package:example/list_example.dart';
+import 'package:example/utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterbook/flutterbook.dart';
@@ -35,6 +36,7 @@ class Storyboard extends StatelessWidget {
               componentName: 'Button',
               states: [
                 ComponentState(
+                  markdown: Future<String>.value("""Dart Doc Example"""),
                   stateName: 'Primary',
                   builder: (context, c) {
                     return Center(
@@ -73,11 +75,9 @@ class Storyboard extends StatelessWidget {
               componentName: 'List',
               states: [
                 ComponentState(
-                  markdown: 'list_example/ListExample/ListExample',
+                  markdown: FileReader().getContents('lib/assets/list_example'),
                   stateName: 'Primary',
-                  builder: (context, c) {
-                    return ListExample();
-                  },
+                  builder: (context, c) => ListExample(),
                 ),
               ],
             ),

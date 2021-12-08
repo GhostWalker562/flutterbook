@@ -142,21 +142,19 @@ class _Doc extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       mainAxisSize: MainAxisSize.min,
-      children: [
-        ...states
-            .where((i) => i.parent == currentState?.parent)
-            .map(
-              (item) => DocPanel(
-                markdown: item.markdown,
-                component: item.builder(
-                  context,
-                  context.watch<CanvasDelegateProvider>().storyProvider!,
-                ),
-                stateName: item.stateName,
+      children: states
+          .where((i) => i.parent == currentState?.parent)
+          .map(
+            (item) => DocPanel(
+              markdown: item.markdown,
+              component: item.builder(
+                context,
+                context.watch<CanvasDelegateProvider>().storyProvider!,
               ),
-            )
-            .toList()
-      ],
+              stateName: item.stateName,
+            ),
+          )
+          .toList(),
     );
   }
 }

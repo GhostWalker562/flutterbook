@@ -72,15 +72,21 @@ class ComponentState {
     required this.builder,
     this.markdown,
   });
-  factory ComponentState.center(
-          {required String stateName, required Widget child, Future<String>? markdown}) =>
+  factory ComponentState.center({
+    required String stateName,
+    required Widget child,
+    Future<String>? markdown,
+  }) =>
       ComponentState(
         stateName: stateName,
         markdown: markdown,
         builder: (_, __) => Center(child: child),
       );
-  factory ComponentState.child(
-          {required String stateName, required Widget child, Future<String>? markdown}) =>
+  factory ComponentState.child({
+    required String stateName,
+    required Widget child,
+    Future<String>? markdown,
+  }) =>
       ComponentState(
         stateName: stateName,
         markdown: markdown,
