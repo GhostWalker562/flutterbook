@@ -53,8 +53,8 @@ class _DocPanelState extends State<DocPanel> {
   @override
   Widget build(BuildContext context) {
     final TextStyle tabStyle = Theme.of(context).textTheme.subtitle1!.copyWith(
-          fontWeight: FontWeight.bold,
           color: Theme.of(context).hintColor,
+          fontWeight: FontWeight.bold,
         );
 
     TransformationController _transformation = TransformationController();
