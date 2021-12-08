@@ -87,8 +87,8 @@ class _DocPanelState extends State<DocPanel> {
               ),
               const SizedBox(width: 8),
               StyledTextButton(
-                onPressed: zoomOut,
                 icon: FeatherIcons.zoomOut,
+                onPressed: zoomOut,
               ),
               const SizedBox(width: 8),
               StyledTextButton(
