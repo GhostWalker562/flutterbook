@@ -74,9 +74,7 @@ class Editor extends StatelessWidget {
                         Widget element =
                             model.tab == editor.FlutterBookTab.canvas
                                 ? _Canvas(component)
-                                : SingleChildScrollView(
-                                    child: _Doc(state, currentStory),
-                                  );
+                                : _Doc(state, currentStory);
                         return element;
                       },
                     )
@@ -140,21 +138,23 @@ class _Doc extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: states
-          .where((i) => i.parent == currentState?.parent)
-          .map(
-            (item) => DocPanel(
-              component: item.builder(
-                context,
-                context.watch<CanvasDelegateProvider>().storyProvider!,
+    return SingleChildScrollView(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: states
+            .where((i) => i.parent == currentState?.parent)
+            .map(
+              (item) => DocPanel(
+                component: item.builder(
+                  context,
+                  context.watch<CanvasDelegateProvider>().storyProvider!,
+                ),
+                markdown: item.markdown,
+                stateName: item.stateName,
               ),
-              markdown: item.markdown,
-              stateName: item.stateName,
-            ),
-          )
-          .toList(),
+            )
+            .toList(),
+      ),
     );
   }
 }

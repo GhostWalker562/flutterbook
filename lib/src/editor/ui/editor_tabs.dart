@@ -36,16 +36,17 @@ class _CoreContentTabsState extends State<CoreContentTabs> {
       child: Row(
         children: [
           TextButton(
-            onPressed: () => Provider.of<TabProvider>(context, listen: false,)
-                .setTab(FlutterBookTab.canvas),
+            onPressed: () => Provider.of<TabProvider>(
+              context,
+              listen: false,
+            ).setTab(FlutterBookTab.canvas),
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 200),
               decoration: BoxDecoration(
                 border: Border(
                   bottom: BorderSide(
                     color: context.colorScheme.primary,
-                    style: context.watch<TabProvider>().tab ==
-                            FlutterBookTab.canvas
+                    style: context.watch<TabProvider>().tab == FlutterBookTab.canvas
                         ? BorderStyle.solid
                         : BorderStyle.none,
                     width: 3,
@@ -63,8 +64,10 @@ class _CoreContentTabsState extends State<CoreContentTabs> {
             ),
           ),
           TextButton(
-            onPressed: () => Provider.of<TabProvider>(context, listen: false,)
-                .setTab(FlutterBookTab.docs),
+            onPressed: () => Provider.of<TabProvider>(
+              context,
+              listen: false,
+            ).setTab(FlutterBookTab.docs),
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 200),
               decoration: BoxDecoration(
@@ -117,7 +120,7 @@ class _CanvasTabs extends StatelessWidget {
           icon: FeatherIcons.zoomOut,
           onPressed: context.read<ZoomProvider>().zoomOut,
         ),
-       _spacer,
+        _spacer,
         StyledTextButton(
           icon: FeatherIcons.refreshCcw,
           onPressed: context.read<ZoomProvider>().resetZoom,
@@ -127,12 +130,12 @@ class _CanvasTabs extends StatelessWidget {
           onPressed: context.read<GridProvider>().toggleGrid,
         ),
         const TabsVerticalDivider(),
-       _spacer,
+        _spacer,
         StyledTextButton(
           icon: FeatherIcons.smartphone,
           onPressed: context.read<DevicePreviewProvider>().togglePreview,
         ),
-       _spacer,
+        _spacer,
       ],
     );
   }
