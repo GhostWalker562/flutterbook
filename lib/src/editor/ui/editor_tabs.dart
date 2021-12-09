@@ -36,19 +36,19 @@ class _CoreContentTabsState extends State<CoreContentTabs> {
       child: Row(
         children: [
           TextButton(
-            onPressed: () => {
-              Provider.of<TabProvider>(context, listen: false).setTab(FlutterBookTab.canvas)
-            },
+            onPressed: () => Provider.of<TabProvider>(
+              context,
+              listen: false,
+            ).setTab(FlutterBookTab.canvas),
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 200),
               decoration: BoxDecoration(
                 border: Border(
                   bottom: BorderSide(
                     color: context.colorScheme.primary,
-                    style:
-                        context.watch<TabProvider>().tab == FlutterBookTab.canvas
-                            ? BorderStyle.solid
-                            : BorderStyle.none,
+                    style: context.watch<TabProvider>().tab == FlutterBookTab.canvas
+                        ? BorderStyle.solid
+                        : BorderStyle.none,
                     width: 3,
                   ),
                 ),
@@ -64,8 +64,10 @@ class _CoreContentTabsState extends State<CoreContentTabs> {
             ),
           ),
           TextButton(
-            onPressed: () =>
-                {Provider.of<TabProvider>(context, listen: false).setTab(FlutterBookTab.docs)},
+            onPressed: () => Provider.of<TabProvider>(
+              context,
+              listen: false,
+            ).setTab(FlutterBookTab.docs),
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 200),
               decoration: BoxDecoration(
@@ -91,37 +93,50 @@ class _CoreContentTabsState extends State<CoreContentTabs> {
             ),
           ),
           const TabsVerticalDivider(),
+          if (context.read<TabProvider>().tab == FlutterBookTab.canvas)
+            _CanvasTabs(),
           StyledTextButton(
-            onPressed: context.read<ZoomProvider>().zoomIn,
-            icon: FeatherIcons.zoomIn,
-          ),
-          const SizedBox(width: 8),
-          StyledTextButton(
-            onPressed: context.read<ZoomProvider>().zoomOut,
-            icon: FeatherIcons.zoomOut,
-          ),
-          const SizedBox(width: 8),
-          StyledTextButton(
-            onPressed: context.read<ZoomProvider>().resetZoom,
-            icon: FeatherIcons.refreshCcw,
-          ),
-          StyledTextButton(
-            onPressed: context.read<GridProvider>().toggleGrid,
-            icon: FeatherIcons.grid,
-          ),
-          const TabsVerticalDivider(),
-          const SizedBox(width: 8),
-          StyledTextButton(
-            onPressed: context.read<DarkThemeProvider>().toggleDarkTheme,
             icon: FeatherIcons.moon,
-          ),
-          const SizedBox(width: 8),
-          StyledTextButton(
-            onPressed: context.read<DevicePreviewProvider>().togglePreview,
-            icon: FeatherIcons.smartphone,
+            onPressed: context.read<DarkThemeProvider>().toggleDarkTheme,
           ),
         ],
       ),
+    );
+  }
+}
+
+class _CanvasTabs extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    const _spacer = const SizedBox(width: 8);
+    return Row(
+      children: [
+        StyledTextButton(
+          icon: FeatherIcons.zoomIn,
+          onPressed: context.read<ZoomProvider>().zoomIn,
+        ),
+        _spacer,
+        StyledTextButton(
+          icon: FeatherIcons.zoomOut,
+          onPressed: context.read<ZoomProvider>().zoomOut,
+        ),
+        _spacer,
+        StyledTextButton(
+          icon: FeatherIcons.refreshCcw,
+          onPressed: context.read<ZoomProvider>().resetZoom,
+        ),
+        StyledTextButton(
+          icon: FeatherIcons.grid,
+          onPressed: context.read<GridProvider>().toggleGrid,
+        ),
+        const TabsVerticalDivider(),
+        _spacer,
+        StyledTextButton(
+          icon: FeatherIcons.smartphone,
+          onPressed: context.read<DevicePreviewProvider>().togglePreview,
+        ),
+        _spacer,
+      ],
     );
   }
 }

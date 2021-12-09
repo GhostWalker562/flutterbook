@@ -1,21 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
-import 'package:flutter_highlight/flutter_highlight.dart';
-import 'package:flutter_highlight/themes/atom-one-dark.dart';
-import 'package:flutterbook/src/editor/ui/copy_text.dart';
+import 'package:flutterbook/src/editor/ui/doc_markdown.dart';
 import 'package:flutterbook/src/editor/ui/styled_icon_button.dart';
 import 'package:flutterbook/src/utils/extensions.dart';
 import 'package:flutterbook/src/utils/radii.dart';
 
 class DocPanel extends StatefulWidget {
   final Widget component;
-  final String? docs;
+  final Future<String>? markdown;
   final String stateName;
 
   const DocPanel({
     Key? key,
     required this.component,
-    this.docs,
+    this.markdown,
     required this.stateName,
   }) : super(key: key);
 
@@ -55,7 +53,7 @@ class _DocPanelState extends State<DocPanel> {
   @override
   Widget build(BuildContext context) {
     final TextStyle tabStyle = Theme.of(context).textTheme.subtitle1!.copyWith(
-          color: context.theme.hintColor,
+          color: Theme.of(context).hintColor,
           fontWeight: FontWeight.bold,
         );
 
@@ -73,79 +71,68 @@ class _DocPanelState extends State<DocPanel> {
         color: context.colorScheme.surface,
       ),
       margin: const EdgeInsets.fromLTRB(0, 12, 12, 12),
-      width: 900,
-      child: IntrinsicHeight(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            IntrinsicHeight(
-              child: Row(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Row(
+            children: [
+              Padding(
+                padding: EdgeInsets.all(10),
+                child: Text(widget.stateName, style: tabStyle),
+              ),
+              VerticalDivider(),
+              StyledTextButton(
+                icon: FeatherIcons.zoomIn,
+                onPressed: zoomIn,
+              ),
+              const SizedBox(width: 8),
+              StyledTextButton(
+                icon: FeatherIcons.zoomOut,
+                onPressed: zoomOut,
+              ),
+              const SizedBox(width: 8),
+              StyledTextButton(
+                icon: FeatherIcons.refreshCcw,
+                onPressed: resetZoom,
+              ),
+            ],
+          ),
+          Divider(
+            color: context.theme.dividerColor.withOpacity(0.5),
+            height: 0,
+          ),
+          Padding(
+            padding: EdgeInsets.all(5),
+            child: InteractiveViewer(
+              boundaryMargin: EdgeInsets.all(double.infinity),
+              panEnabled: true,
+              transformationController: _transformation,
+              child: widget.component,
+            ),
+          ),
+          Align(
+              alignment: Alignment.bottomLeft,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
                 children: [
-                  Padding(
-                    padding: EdgeInsets.all(10),
-                    child: Text(widget.stateName, style: tabStyle),
-                  ),
-                  VerticalDivider(),
-                  StyledTextButton(
-                    icon: FeatherIcons.zoomIn,
-                    onPressed: zoomIn,
-                  ),
-                  const SizedBox(width: 8),
-                  StyledTextButton(
-                    icon: FeatherIcons.zoomOut,
-                    onPressed: zoomOut,
-                  ),
-                  const SizedBox(width: 8),
-                  StyledTextButton(
-                    onPressed: resetZoom,
-                    icon: FeatherIcons.refreshCcw,
+                  ExpansionTile(
+                    onExpansionChanged: (bool e) {
+                      setState(() => expanded = e);
+                    },
+                    title: Text(expanded ? "Hide Code" : "Show Code"),
+                    children: <Widget>[
+                      if (expanded)
+                        SizedBox(
+                          height: 400,
+                          child: DocMarkDown(markdown: widget.markdown),
+                        )
+                      else
+                        SizedBox.shrink()
+                    ],
                   ),
                 ],
-              ),
-            ),
-            Divider(
-              height: 0,
-              color: context.theme.dividerColor.withOpacity(0.5),
-            ),
-            Padding(
-              padding: EdgeInsets.all(5),
-              child: InteractiveViewer(
-                boundaryMargin: EdgeInsets.all(double.infinity),
-                panEnabled: true,
-                transformationController: _transformation,
-                child: widget.component,
-              ),
-            ),
-            widget.docs != null
-                ? Align(
-                    alignment: Alignment.bottomLeft,
-                    child: Row(
-                      children: [
-                        TextButton(
-                          onPressed: toggleExpansion,
-                          child: Text(expanded ? 'Hide Code' : 'Show Code'),
-                        ),
-                        if (expanded)
-                          CopyText(
-                            textCopied: widget.docs!,
-                            textTooltip: 'Copy Code!',
-                          )
-                      ],
-                    ))
-                : SizedBox.shrink(),
-            expanded
-                ? Container(
-                    child: SingleChildScrollView(
-                    child: HighlightView(
-                      widget.docs!,
-                      language: 'dart',
-                      padding: EdgeInsets.all(10),
-                      theme: atomOneDarkTheme,
-                    ),
-                  ))
-                : SizedBox.shrink(),
-          ],
-        ),
+              )),
+        ],
       ),
     );
   }

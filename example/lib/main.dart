@@ -1,4 +1,5 @@
-
+import 'package:example/list_example.dart';
+import 'package:example/utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterbook/flutterbook.dart';
@@ -35,9 +36,7 @@ class Storyboard extends StatelessWidget {
               componentName: 'Button',
               states: [
                 ComponentState(
-                  docs: '''
-                    Button(onPressed: () {}, label: 'hello');
-                  ''',
+                  markdown: Future<String>.value("""Dart Doc Example"""),
                   stateName: 'Primary',
                   builder: (context, c) {
                     return Center(
@@ -70,41 +69,15 @@ class Storyboard extends StatelessWidget {
                     );
                   },
                 ),
-                ComponentState(
-                  docs: '''
-                    IconButton(onPressed: () {}, icon: Icon())
-                  ''',
-                  stateName: 'Secondary',
-                  builder: (context, c) {
-                    return Center(
-                        child: IconButton(
-                      icon: Icon(Icons.smartphone),
-                      onPressed: () {},
-                    ));
-                  },
-                ),
               ],
             ),
             Component(
               componentName: 'List',
               states: [
                 ComponentState(
+                  markdown: FileReader.getContents('lib/assets/list_example'),
                   stateName: 'Primary',
-                  builder: (context, c) {
-                    return Container(
-                      width: 400,
-                      height: 400,
-                      color: Colors.white,
-                      child: ListView.builder(
-                        itemCount: 10,
-                        itemBuilder: (_, i) => Container(
-                          width: 400,
-                          height: 100,
-                          color: (i % 2 == 0) ? Colors.red : Colors.grey,
-                        ),
-                      ),
-                    );
-                  },
+                  builder: (context, c) => ListExample(),
                 ),
               ],
             ),

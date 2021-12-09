@@ -10,7 +10,7 @@ environment:
 dependencies:
   cupertino_icons: ^1.0.3
   device_preview: ^1.0.0-alpha.12
-  flutter_highlight: ^0.7.0
+  flutter_markdown: ^0.6.8
   flutter:
     sdk: flutter
   flutter_feather_icons: ^2.0.0+1
