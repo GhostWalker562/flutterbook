@@ -116,10 +116,10 @@ class _DocPanelState extends State<DocPanel> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   ExpansionTile(
-                    title: Text(expanded ? "Hide Code" : "Show Code"),
                     onExpansionChanged: (bool e) {
                       setState(() => expanded = e);
                     },
+                    title: Text(expanded ? "Hide Code" : "Show Code"),
                     children: <Widget>[
                       expanded
                           ? SizedBox(
