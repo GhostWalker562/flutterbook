@@ -53,21 +53,21 @@ class _DocPanelState extends State<DocPanel> {
   @override
   Widget build(BuildContext context) {
     final TextStyle tabStyle = Theme.of(context).textTheme.subtitle1!.copyWith(
-          fontWeight: FontWeight.bold,
           color: Theme.of(context).hintColor,
+          fontWeight: FontWeight.bold,
         );
 
     TransformationController _transformation = TransformationController();
     _transformation.value = Matrix4.identity()..scale(zoom);
     return Container(
       decoration: BoxDecoration(
+        borderRadius: canvasBorderRadius,
         boxShadow: [
           BoxShadow(
             blurRadius: 8,
             color: context.theme.shadowColor.withOpacity(0.075),
           ),
         ],
-        borderRadius: canvasBorderRadius,
         color: context.colorScheme.surface,
       ),
       margin: const EdgeInsets.fromLTRB(0, 12, 12, 12),
@@ -82,30 +82,30 @@ class _DocPanelState extends State<DocPanel> {
               ),
               VerticalDivider(),
               StyledTextButton(
-                onPressed: zoomIn,
                 icon: FeatherIcons.zoomIn,
+                onPressed: zoomIn,
               ),
               const SizedBox(width: 8),
               StyledTextButton(
-                onPressed: zoomOut,
                 icon: FeatherIcons.zoomOut,
+                onPressed: zoomOut,
               ),
               const SizedBox(width: 8),
               StyledTextButton(
-                onPressed: resetZoom,
                 icon: FeatherIcons.refreshCcw,
+                onPressed: resetZoom,
               ),
             ],
           ),
           Divider(
-            height: 0,
             color: context.theme.dividerColor.withOpacity(0.5),
+            height: 0,
           ),
           Padding(
             padding: EdgeInsets.all(5),
             child: InteractiveViewer(
-              panEnabled: true,
               boundaryMargin: EdgeInsets.all(double.infinity),
+              panEnabled: true,
               transformationController: _transformation,
               child: widget.component,
             ),
@@ -116,10 +116,10 @@ class _DocPanelState extends State<DocPanel> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   ExpansionTile(
-                    title: Text(expanded ? "Hide Code" : "Show Code"),
                     onExpansionChanged: (bool e) {
                       setState(() => expanded = e);
                     },
+                    title: Text(expanded ? "Hide Code" : "Show Code"),
                     children: <Widget>[
                       if (expanded)
                         SizedBox(

@@ -133,8 +133,8 @@ class _DevicePreviewCanvas extends StatelessWidget {
 }
 
 class _Doc extends StatelessWidget {
-  final List<ComponentState> states;
   final ComponentState? currentState;
+  final List<ComponentState> states;
 
   _Doc(this.states, this.currentState);
 
@@ -146,11 +146,11 @@ class _Doc extends StatelessWidget {
           .where((i) => i.parent == currentState?.parent)
           .map(
             (item) => DocPanel(
-              markdown: item.markdown,
               component: item.builder(
                 context,
                 context.watch<CanvasDelegateProvider>().storyProvider!,
               ),
+              markdown: item.markdown,
               stateName: item.stateName,
             ),
           )

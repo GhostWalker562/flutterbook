@@ -19,9 +19,9 @@ class DocMarkDown extends StatelessWidget {
         initialData: DEFAULT_MARKDOWN,
         builder: (context, projectSnap) {
           return Markdown(
-            selectable: true,
             controller: controller,
             data: projectSnap.data.toString(),
+            selectable: true,
             shrinkWrap: true,
           );
         });
