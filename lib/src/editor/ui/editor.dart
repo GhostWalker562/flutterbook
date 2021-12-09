@@ -97,6 +97,7 @@ class Editor extends StatelessWidget {
 class _Canvas extends StatelessWidget {
   final Widget? component;
   _Canvas(this.component);
+  
   @override
   Widget build(BuildContext context) {
     return Consumer<ZoomProvider>(
