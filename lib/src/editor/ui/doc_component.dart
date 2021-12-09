@@ -98,8 +98,8 @@ class _DocPanelState extends State<DocPanel> {
             ],
           ),
           Divider(
-            height: 0,
             color: context.theme.dividerColor.withOpacity(0.5),
+            height: 0,
           ),
           Padding(
             padding: EdgeInsets.all(5),
