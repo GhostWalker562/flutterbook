@@ -133,8 +133,8 @@ class _DevicePreviewCanvas extends StatelessWidget {
 }
 
 class _Doc extends StatelessWidget {
-  final List<ComponentState> states;
   final ComponentState? currentState;
+  final List<ComponentState> states;
 
   _Doc(this.states, this.currentState);
 
