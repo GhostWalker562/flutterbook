@@ -13,7 +13,7 @@ abstract class Organizer {
   Organizer(this.name, this.type, this.organizers);
 }
 
-enum OrganizerType { category, folder, component }
+enum OrganizerType { category, component, folder }
 
 class Category extends Organizer {
   final String categoryName;
@@ -73,7 +73,7 @@ class ComponentState {
     this.markdown,
   });
   factory ComponentState.center({
-     required Widget child,
+    required Widget child,
     Future<String>? markdown,
     required String stateName,
   }) =>
