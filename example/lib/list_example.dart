@@ -7,6 +7,7 @@ class ListExample extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: 500,
       color: Colors.white,
       child: ListView.builder(
         itemCount: 10,
