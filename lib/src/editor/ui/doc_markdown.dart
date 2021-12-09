@@ -17,10 +17,10 @@ class DocMarkDown extends StatelessWidget {
     return FutureBuilder(
         future: markdown,
         initialData: DEFAULT_MARKDOWN,
-        builder: (context, projectSnap) {
+        builder: (context, snapshot) {
           return Markdown(
             controller: controller,
-            data: projectSnap.data.toString(),
+            data: snapshot.data.toString(),
             selectable: true,
             shrinkWrap: true,
           );
