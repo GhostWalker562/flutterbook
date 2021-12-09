@@ -105,33 +105,34 @@ class _CoreContentTabsState extends State<CoreContentTabs> {
 class _CanvasTabs extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    const _spacer = const SizedBox(width: 8);
     return Row(
       children: [
         StyledTextButton(
-          onPressed: context.read<ZoomProvider>().zoomIn,
           icon: FeatherIcons.zoomIn,
+          onPressed: context.read<ZoomProvider>().zoomIn,
         ),
-        const SizedBox(width: 8),
+        _spacer,
         StyledTextButton(
-          onPressed: context.read<ZoomProvider>().zoomOut,
           icon: FeatherIcons.zoomOut,
+          onPressed: context.read<ZoomProvider>().zoomOut,
         ),
-        const SizedBox(width: 8),
+       _spacer,
         StyledTextButton(
-          onPressed: context.read<ZoomProvider>().resetZoom,
           icon: FeatherIcons.refreshCcw,
+          onPressed: context.read<ZoomProvider>().resetZoom,
         ),
         StyledTextButton(
-          onPressed: context.read<GridProvider>().toggleGrid,
           icon: FeatherIcons.grid,
+          onPressed: context.read<GridProvider>().toggleGrid,
         ),
         const TabsVerticalDivider(),
-        const SizedBox(width: 8),
+       _spacer,
         StyledTextButton(
-          onPressed: context.read<DevicePreviewProvider>().togglePreview,
           icon: FeatherIcons.smartphone,
+          onPressed: context.read<DevicePreviewProvider>().togglePreview,
         ),
-        const SizedBox(width: 8),
+       _spacer,
       ],
     );
   }

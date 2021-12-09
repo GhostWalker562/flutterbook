@@ -4,9 +4,9 @@ import 'package:recase/recase.dart';
 import '../../routing/controls.dart';
 
 abstract class Organizer {
-  final String name;
-  final OrganizerType type;
   final List<Organizer> organizers;
+  final OrganizerType type;
+  final String name;
   Organizer? parent;
 
   /// Abstract class for organizer panel in the left.
@@ -52,8 +52,8 @@ class Component extends Organizer {
 }
 
 class ComponentState {
-  final String stateName;
   final Future<String>? markdown;
+  final String stateName;
   final Widget Function(BuildContext, ControlsInterface) builder;
   Component? parent;
 
@@ -68,28 +68,28 @@ class ComponentState {
   }
 
   ComponentState({
-    required this.stateName,
     required this.builder,
+    required this.stateName,
     this.markdown,
   });
   factory ComponentState.center({
+    Future<String>? markdown,
     required String stateName,
     required Widget child,
-    Future<String>? markdown,
   }) =>
       ComponentState(
-        stateName: stateName,
-        markdown: markdown,
         builder: (_, __) => Center(child: child),
+        markdown: markdown,
+        stateName: stateName,
       );
   factory ComponentState.child({
+    Future<String>? markdown,
     required String stateName,
     required Widget child,
-    Future<String>? markdown,
   }) =>
       ComponentState(
-        stateName: stateName,
-        markdown: markdown,
         builder: (_, __) => child,
+        markdown: markdown,
+        stateName: stateName,
       );
 }

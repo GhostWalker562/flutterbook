@@ -121,12 +121,13 @@ class _DocPanelState extends State<DocPanel> {
                       setState(() => expanded = e);
                     },
                     children: <Widget>[
-                      expanded
-                          ? SizedBox(
-                              height: 400,
-                              child: DocMarkDown(markdown: widget.markdown),
-                            )
-                          : SizedBox.shrink()
+                      if (expanded)
+                        SizedBox(
+                          height: 400,
+                          child: DocMarkDown(markdown: widget.markdown),
+                        )
+                      else
+                        SizedBox.shrink()
                     ],
                   ),
                 ],

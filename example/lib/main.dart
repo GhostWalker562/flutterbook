@@ -75,7 +75,7 @@ class Storyboard extends StatelessWidget {
               componentName: 'List',
               states: [
                 ComponentState(
-                  markdown: FileReader().getContents('lib/assets/list_example'),
+                  markdown: FileReader.getContents('lib/assets/list_example'),
                   stateName: 'Primary',
                   builder: (context, c) => ListExample(),
                 ),
