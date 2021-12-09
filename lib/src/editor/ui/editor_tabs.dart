@@ -36,7 +36,7 @@ class _CoreContentTabsState extends State<CoreContentTabs> {
       child: Row(
         children: [
           TextButton(
-            onPressed: () => Provider.of<TabProvider>(context, listen: false)
+            onPressed: () => Provider.of<TabProvider>(context, listen: false,)
                 .setTab(FlutterBookTab.canvas),
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 200),
