@@ -96,8 +96,8 @@ class _CoreContentTabsState extends State<CoreContentTabs> {
           if (context.read<TabProvider>().tab == FlutterBookTab.canvas)
             _CanvasTabs(),
           StyledTextButton(
-            onPressed: context.read<DarkThemeProvider>().toggleDarkTheme,
             icon: FeatherIcons.moon,
+            onPressed: context.read<DarkThemeProvider>().toggleDarkTheme,
           ),
         ],
       ),

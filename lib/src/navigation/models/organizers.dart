@@ -13,7 +13,7 @@ abstract class Organizer {
   Organizer(this.name, this.type, this.organizers);
 }
 
-enum OrganizerType { folder, component, category }
+enum OrganizerType { category, folder, component }
 
 class Category extends Organizer {
   final String categoryName;
@@ -52,10 +52,10 @@ class Component extends Organizer {
 }
 
 class ComponentState {
+  Component? parent;
   final Future<String>? markdown;
   final String stateName;
   final Widget Function(BuildContext, ControlsInterface) builder;
-  Component? parent;
 
   String get path {
     String path = ReCase(stateName).paramCase;
@@ -73,9 +73,9 @@ class ComponentState {
     this.markdown,
   });
   factory ComponentState.center({
+     required Widget child,
     Future<String>? markdown,
     required String stateName,
-    required Widget child,
   }) =>
       ComponentState(
         builder: (_, __) => Center(child: child),
@@ -83,9 +83,9 @@ class ComponentState {
         stateName: stateName,
       );
   factory ComponentState.child({
+    required Widget child,
     Future<String>? markdown,
     required String stateName,
-    required Widget child,
   }) =>
       ComponentState(
         builder: (_, __) => child,
