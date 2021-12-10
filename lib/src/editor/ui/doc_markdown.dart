@@ -30,7 +30,7 @@ class DocMarkDown extends StatelessWidget {
                         new ClipboardData(text: snapshot.data.toString()))
                     .then((_) {
                   Scaffold.of(context).showSnackBar(
-                      SnackBar(content: Text("Copy Code Snippet")));
+                      SnackBar(content: Text("Copy to Clipboard")));
                 });
               },
               controller: controller,
