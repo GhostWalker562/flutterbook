@@ -24,6 +24,7 @@ class DocMarkDown extends StatelessWidget {
           return Tooltip(
             message: "Copy Code Snippet",
             child: Markdown(
+              styleSheet: MarkdownStyleSheet.fromTheme(Theme.of(context)),
               onTapText: () {
                 Clipboard.setData(
                         new ClipboardData(text: snapshot.data.toString()))
