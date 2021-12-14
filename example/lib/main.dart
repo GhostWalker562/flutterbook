@@ -36,7 +36,7 @@ class Storyboard extends StatelessWidget {
               componentName: 'Button',
               states: [
                 ComponentState(
-                  markdown: Future<String>.value("""Dart Doc Example"""),
+                  markdown: """Dart Doc Example""",
                   stateName: 'Primary',
                   builder: (context, c) {
                     return Center(
@@ -75,7 +75,7 @@ class Storyboard extends StatelessWidget {
               componentName: 'List',
               states: [
                 ComponentState(
-                  markdown: FileReader.getContents('lib/assets/list_example'),
+                  markdown: """ListExample()""",
                   stateName: 'Primary',
                   builder: (context, c) => ListExample(),
                 ),
