@@ -3,42 +3,33 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutterbook/src/shared/const.dart';
-import 'package:flutterbook/src/utils/utils.dart';
 
 class DocMarkDown extends StatelessWidget {
-  final Future<String>? markdown;
+  final String? markdown;
 
   const DocMarkDown({
     Key? key,
-    this.markdown,
+    this.markdown = DEFAULT_MARKDOWN,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final controller = ScrollController();
 
-    return FutureBuilder(
-        future: markdown,
-        initialData: DEFAULT_MARKDOWN,
-        builder: (context, snapshot) {
-          return Tooltip(
-            message: "Copy Code Snippet",
-            child: Markdown(
-              styleSheet: MarkdownStyleSheet.fromTheme(Theme.of(context)),
-              onTapText: () {
-                Clipboard.setData(
-                        new ClipboardData(text: snapshot.data.toString()))
-                    .then((_) {
-                  Scaffold.of(context).showSnackBar(
-                      SnackBar(content: Text("Copy to Clipboard")));
-                });
-              },
-              controller: controller,
-              data: snapshot.data.toString(),
-              selectable: true,
-              shrinkWrap: true,
-            ),
-          );
-        });
+    return Tooltip(
+      message: "Copy Code Snippet",
+      child: Markdown(
+        styleSheet: MarkdownStyleSheet.fromTheme(Theme.of(context)),
+        onTapText: () {
+          Clipboard.setData(new ClipboardData(text: markdown!));
+          Scaffold.of(context)
+              .showSnackBar(SnackBar(content: Text("Copy Code Snippet")));
+        },
+        controller: controller,
+        data: markdown!,
+        selectable: true,
+        shrinkWrap: true,
+      ),
+    );
   }
 }

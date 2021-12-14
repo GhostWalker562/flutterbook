@@ -7,7 +7,7 @@ import 'package:flutterbook/src/utils/radii.dart';
 
 class DocPanel extends StatefulWidget {
   final Widget component;
-  final Future<String>? markdown;
+  final String? markdown;
   final String stateName;
 
   const DocPanel({
