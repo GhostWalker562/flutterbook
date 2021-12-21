@@ -9,7 +9,7 @@ class DocMarkDown extends StatelessWidget {
 
   const DocMarkDown({
     Key? key,
-    this.markdown = DEFAULT_MARKDOWN,
+    this.markdown,
   }) : super(key: key);
 
   @override
@@ -21,12 +21,11 @@ class DocMarkDown extends StatelessWidget {
       child: Markdown(
         styleSheet: MarkdownStyleSheet.fromTheme(Theme.of(context)),
         onTapText: () {
-          Clipboard.setData(new ClipboardData(text: markdown!));
-          Scaffold.of(context)
-              .showSnackBar(SnackBar(content: Text("Copy Code Snippet")));
+          Clipboard.setData(new ClipboardData(text: markdown ?? ''));
+          Scaffold.of(context).showSnackBar(SnackBar(content: Text("Copy Code Snippet")));
         },
         controller: controller,
-        data: markdown!,
+        data: markdown ?? DEFAULT_MARKDOWN,
         selectable: true,
         shrinkWrap: true,
       ),
