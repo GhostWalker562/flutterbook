@@ -28,6 +28,7 @@ class StoryProvider extends ChangeNotifier implements ControlsInterface {
 
   final Map<String, Control> _controls = <String, Control>{};
   static const String kDefaultNoDescMessage = 'No description.';
+  bool _disposed = false;
 
   @override
   bool boolean(
@@ -64,4 +65,17 @@ class StoryProvider extends ChangeNotifier implements ControlsInterface {
     String description = kDefaultNoDescMessage,
   }) =>
       addControl(NumberControl(label, initial, initial, description, min, max));
+      
+  @override
+  void dispose() {
+    _disposed = true;
+    super.dispose();
+  }
+
+  @override
+  void notifyListeners() {
+    if (!_disposed) {
+      super.notifyListeners();
+    }
+  }
 }

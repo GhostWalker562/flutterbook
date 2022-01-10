@@ -4,16 +4,16 @@ import 'package:recase/recase.dart';
 import '../../routing/controls.dart';
 
 abstract class Organizer {
-  final String name;
-  final OrganizerType type;
   final List<Organizer> organizers;
+  final OrganizerType type;
+  final String name;
   Organizer? parent;
 
   /// Abstract class for organizer panel in the left.
   Organizer(this.name, this.type, this.organizers);
 }
 
-enum OrganizerType { folder, component, category }
+enum OrganizerType { category, component, folder }
 
 class Category extends Organizer {
   final String categoryName;
@@ -52,9 +52,10 @@ class Component extends Organizer {
 }
 
 class ComponentState {
+  Component? parent;
+  final String? markdown;
   final String stateName;
   final Widget Function(BuildContext, ControlsInterface) builder;
-  Component? parent;
 
   String get path {
     String path = ReCase(stateName).paramCase;
@@ -66,17 +67,29 @@ class ComponentState {
     return path;
   }
 
-  ComponentState({required this.stateName, required this.builder});
-  factory ComponentState.center(
-          {required String stateName, required Widget child}) =>
+  ComponentState({
+    required this.builder,
+    required this.stateName,
+    this.markdown,
+  });
+  factory ComponentState.center({
+    required Widget child,
+    String? markdown,
+    required String stateName,
+  }) =>
       ComponentState(
-        stateName: stateName,
         builder: (_, __) => Center(child: child),
-      );
-  factory ComponentState.child(
-          {required String stateName, required Widget child}) =>
-      ComponentState(
+        markdown: markdown,
         stateName: stateName,
+      );
+  factory ComponentState.child({
+    required Widget child,
+    String? markdown,
+    required String stateName,
+  }) =>
+      ComponentState(
         builder: (_, __) => child,
+        markdown: markdown,
+        stateName: stateName,
       );
 }

@@ -1,22 +1,30 @@
+import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
+import 'package:flutterbook/src/editor/providers/device_preview_provider.dart';
+import 'package:flutterbook/src/editor/providers/tab_provider.dart';
+import 'package:flutterbook/src/editor/ui/doc_component.dart';
+import 'package:flutterbook/src/routing/router.dart';
 import 'package:provider/provider.dart';
 
+import '../../../flutterbook.dart';
 import '../../routing/story_provider.dart';
 import '../../utils/utils.dart';
 import '../providers/canvas_delegate.dart';
 import '../providers/grid_provider.dart';
 import '../providers/zoom_provider.dart';
 import 'editor_bottom_bar.dart';
-import 'editor_tabs.dart';
+import 'editor_tabs.dart' as editor;
 
 class Editor extends StatelessWidget {
-  const Editor({Key? key, required this.component})
-      : super(key: key);
+  const Editor({Key? key, required this.component}) : super(key: key);
 
   final Widget? component;
 
   @override
   Widget build(BuildContext context) {
+    ComponentState? currentStory =
+        context.watch<CanvasDelegateProvider>().storyProvider?.currentStory;
+
     return Container(
       decoration: BoxDecoration(
         boxShadow: [
@@ -34,9 +42,9 @@ class Editor extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            const SingleChildScrollView(
+            SingleChildScrollView(
               scrollDirection: Axis.horizontal,
-              child: CoreContentTabs(),
+              child: editor.CoreContentTabs(),
             ),
             Divider(
               height: 0,
@@ -58,14 +66,18 @@ class Editor extends StatelessWidget {
                         },
                       ),
                     ),
-                    Consumer<ZoomProvider>(
+                    Consumer<TabProvider>(
                       builder: (context, model, child) {
-                        return Transform.scale(
-                          scale: model.zoom,
-                          child: component ?? const SizedBox.shrink(),
-                        );
+                        List<ComponentState> state = recursiveRetrievalOfStates(
+                            context.read<List<Category>>());
+
+                        Widget element =
+                            model.tab == editor.FlutterBookTab.canvas
+                                ? _Canvas(component)
+                                : _Doc(state, currentStory);
+                        return element;
                       },
-                    ),
+                    )
                   ],
                 ),
               ),
@@ -82,6 +94,87 @@ class Editor extends StatelessWidget {
   }
 }
 
+class _Canvas extends StatelessWidget {
+  final Widget? component;
+  _Canvas(this.component);
+  
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<ZoomProvider>(
+      builder: (context, model, child) {
+        TransformationController _transformation = TransformationController();
+        _transformation.value = Matrix4.identity()..scale(model.zoom);
+        return context.watch<DevicePreviewProvider>().show
+            ? _DevicePreviewCanvas(component, _transformation)
+            : _InteractiveViewerCanvas(component, _transformation);
+      },
+    );
+  }
+}
+
+class _DevicePreviewCanvas extends StatelessWidget {
+  final Widget? component;
+  final TransformationController controller;
+  _DevicePreviewCanvas(this.component, this.controller);
+  @override
+  Widget build(BuildContext context) {
+    return DevicePreview(
+      builder: (context) {
+        return InteractiveViewer(
+          boundaryMargin: EdgeInsets.all(double.infinity),
+          child: component ?? const SizedBox.shrink(),
+          panEnabled: true,
+          transformationController: controller,
+        );
+      },
+    );
+  }
+}
+
+class _Doc extends StatelessWidget {
+  final ComponentState? currentState;
+  final List<ComponentState> states;
+
+  _Doc(this.states, this.currentState);
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: states
+            .where((i) => i.parent == currentState?.parent)
+            .map(
+              (item) => DocPanel(
+                component: item.builder(
+                  context,
+                  context.watch<CanvasDelegateProvider>().storyProvider!,
+                ),
+                markdown: item.markdown,
+                stateName: item.stateName,
+              ),
+            )
+            .toList(),
+      ),
+    );
+  }
+}
+
+class _InteractiveViewerCanvas extends StatelessWidget {
+  final Widget? component;
+  final TransformationController controller;
+  _InteractiveViewerCanvas(this.component, this.controller);
+  @override
+  Widget build(BuildContext context) {
+    return InteractiveViewer(
+      boundaryMargin: EdgeInsets.all(double.infinity),
+      child: component ?? const SizedBox.shrink(),
+      panEnabled: true,
+      transformationController: controller,
+    );
+  }
+}
+
 class Story extends StatelessWidget {
   const Story({Key? key}) : super(key: key);
 
@@ -91,14 +184,17 @@ class Story extends StatelessWidget {
 
     return story?.builder(
             context, context.watch<CanvasDelegateProvider>().storyProvider!) ??
-        Center(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text('😉', style: context.textTheme.headline2),
-              const SizedBox(height: 12),
-              const Text('Select a Story!'),
-            ],
+        Container(
+          color: context.colorScheme.onSecondary,
+          child: Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text('😉', style: context.textTheme.headline2),
+                const SizedBox(height: 12),
+                const Text('Select a Story!'),
+              ],
+            ),
           ),
         );
   }

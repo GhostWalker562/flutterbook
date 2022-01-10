@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutterbook/src/editor/providers/device_preview_provider.dart';
+import 'package:flutterbook/src/editor/providers/tab_provider.dart';
 import 'package:provider/provider.dart';
 
 import 'editor/editor.dart';
@@ -58,10 +60,12 @@ class _FlutterBookState extends State<FlutterBook> {
     return MultiProvider(
       providers: [
         Provider.value(value: widget.categories),
-        ChangeNotifierProvider(create: (_) => DarkThemeProvider()),
-        ChangeNotifierProvider(create: (_) => GridProvider()),
-        ChangeNotifierProvider(create: (_) => ZoomProvider()),
         ChangeNotifierProvider(create: (_) => CanvasDelegateProvider()),
+        ChangeNotifierProvider(create: (_) => DarkThemeProvider()),
+        ChangeNotifierProvider(create: (_) => DevicePreviewProvider()),
+        ChangeNotifierProvider(create: (_) => GridProvider()),
+        ChangeNotifierProvider(create: (_) => TabProvider()),
+        ChangeNotifierProvider(create: (_) => ZoomProvider()),
       ],
       child: Consumer<DarkThemeProvider>(
         builder: (BuildContext context, model, Widget? child) {
