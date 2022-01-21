@@ -1,7 +1,5 @@
 import 'package:example/list_example.dart';
-import 'package:example/utils.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:flutterbook/flutterbook.dart';
 
 void main() {

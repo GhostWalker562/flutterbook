@@ -8,7 +8,6 @@ import 'package:provider/provider.dart';
 
 import '../../theme_provider.dart';
 import '../../utils/extensions.dart';
-import '../providers/zoom_provider.dart';
 
 enum FlutterBookTab { canvas, docs }
 

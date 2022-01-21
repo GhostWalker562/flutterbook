@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterbook/src/editor/providers/device_preview_provider.dart';
 import 'package:flutterbook/src/editor/providers/tab_provider.dart';
@@ -82,12 +81,9 @@ class _FlutterBookState extends State<FlutterBook> {
                       headerPadding: widget.headerPadding,
                       categories: context.watch<List<Category>>().toList(),
                       onComponentSelected: (child) {
-                        navigator.currentState!.pushReplacementNamed(
-                            '/stories/${child?.path ?? ''}');
-                        context
-                            .read<CanvasDelegateProvider>()
-                            .storyProvider!
-                            .updateStory(child);
+                        navigator.currentState!
+                            .pushReplacementNamed('/stories/${child?.path ?? ''}');
+                        context.read<CanvasDelegateProvider>().storyProvider!.updateStory(child);
                       },
                     ),
                     Expanded(
