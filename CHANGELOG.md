@@ -21,3 +21,10 @@
 * Ignore case during search
 
 * Dependency Updates
+
+# 0.1.6
+
+* Device Preview
+* Add Document Preview Page
+* Add Markdown capabilites for Components
+* Fixed bug with Controls not working

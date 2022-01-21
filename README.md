@@ -133,9 +133,9 @@ Category(
 ## Roadmap 🚧
 - [ ] Mobile Support
 - [ ] 100% Code Coverage Testing
-- [ ] Documentation Support in ComponentState's
+- [X ] Documentation Support in ComponentState's
 - [ ] Better Docs
-- [ ] Device Previews
+- [X ] Device Previews
 - [ ] Shareable Handoffs
 - [ ] Optimization
 
