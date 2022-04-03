@@ -14,6 +14,9 @@ Go subscribe to my YouTube channel to support development.
 
 # [![MOONSDONTBURN Header](https://i.imgur.com/1QHjcUZ.png)](https://www.youtube.com/channel/UCurQRmT17EyOIrdPseiastg)
 
+### Demo
+<a href="https://flutterbook.vercel.app/#/" target="_blank">Demo Link Here</a>
+
 ## Overview ✨
 
 #### Creating the Main
@@ -127,9 +130,6 @@ Category(
     ],
 ),
 ```
-
-### Demo
-<a href="https://flutterbook.vercel.app/#/" target="_blank">Demo Link Here</a>
 
 #### That's it!
 
