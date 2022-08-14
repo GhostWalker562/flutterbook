@@ -9,7 +9,7 @@ class Unfocuser extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
-      onTap: WidgetsBinding.instance!.focusManager.primaryFocus?.unfocus,
+      onTap: WidgetsBinding.instance.focusManager.primaryFocus?.unfocus,
       child: child,
     );
   }

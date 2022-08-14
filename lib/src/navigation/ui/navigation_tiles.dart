@@ -117,7 +117,7 @@ class _ComponentTileState extends State<ComponentTile>
                   size: 14,
                   color: hover
                       ? context.colorScheme.onPrimary
-                      : context.colorScheme.secondaryVariant,
+                      : context.colorScheme.secondaryContainer,
                 ),
                 const SizedBox(width: 8),
                 Text(
@@ -191,7 +191,7 @@ class _FolderTileState extends State<FolderTile>
                   size: 14,
                   color: hover
                       ? context.colorScheme.onPrimary
-                      : context.colorScheme.primaryVariant,
+                      : context.colorScheme.primaryContainer,
                 ),
                 const SizedBox(width: 8),
                 Text(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutterbook/src/editor/providers/device_preview_provider.dart';
+import 'package:flutterbook/src/editor/providers/pan_provider.dart';
 import 'package:flutterbook/src/editor/providers/tab_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -65,6 +66,7 @@ class _FlutterBookState extends State<FlutterBook> {
         ChangeNotifierProvider(create: (_) => GridProvider()),
         ChangeNotifierProvider(create: (_) => TabProvider()),
         ChangeNotifierProvider(create: (_) => ZoomProvider()),
+        ChangeNotifierProvider(create: (_) => PanProvider()),
       ],
       child: Consumer<DarkThemeProvider>(
         builder: (BuildContext context, model, Widget? child) {
@@ -81,9 +83,12 @@ class _FlutterBookState extends State<FlutterBook> {
                       headerPadding: widget.headerPadding,
                       categories: context.watch<List<Category>>().toList(),
                       onComponentSelected: (child) {
-                        navigator.currentState!
-                            .pushReplacementNamed('/stories/${child?.path ?? ''}');
-                        context.read<CanvasDelegateProvider>().storyProvider!.updateStory(child);
+                        navigator.currentState!.pushReplacementNamed(
+                            '/stories/${child?.path ?? ''}');
+                        context
+                            .read<CanvasDelegateProvider>()
+                            .storyProvider!
+                            .updateStory(child);
                       },
                     ),
                     Expanded(

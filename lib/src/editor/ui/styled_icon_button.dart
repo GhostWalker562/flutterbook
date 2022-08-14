@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 
 class StyledTextButton extends StatelessWidget {
   final IconData icon;
+  final bool isActive;
   final VoidCallback onPressed;
 
   StyledTextButton({
     required this.icon,
     required this.onPressed,
+    this.isActive = false,
   });
 
   @override
@@ -18,7 +20,9 @@ class StyledTextButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(90),
           child: Icon(
             icon,
-            color: Theme.of(context).hintColor,
+            color: isActive
+                ? Theme.of(context).colorScheme.primary
+                : Theme.of(context).hintColor,
             size: 16,
           )),
     );

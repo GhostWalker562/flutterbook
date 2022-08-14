@@ -1,6 +1,7 @@
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterbook/src/editor/providers/device_preview_provider.dart';
+import 'package:flutterbook/src/editor/providers/pan_provider.dart';
 import 'package:flutterbook/src/editor/providers/tab_provider.dart';
 import 'package:flutterbook/src/editor/ui/doc_component.dart';
 import 'package:flutterbook/src/routing/router.dart';
@@ -97,7 +98,7 @@ class Editor extends StatelessWidget {
 class _Canvas extends StatelessWidget {
   final Widget? component;
   _Canvas(this.component);
-  
+
   @override
   Widget build(BuildContext context) {
     return Consumer<ZoomProvider>(
@@ -105,7 +106,7 @@ class _Canvas extends StatelessWidget {
         TransformationController _transformation = TransformationController();
         _transformation.value = Matrix4.identity()..scale(model.zoom);
         return context.watch<DevicePreviewProvider>().show
-            ? _DevicePreviewCanvas(component, _transformation)
+            ? _DevicePreviewCanvas(component)
             : _InteractiveViewerCanvas(component, _transformation);
       },
     );
@@ -114,18 +115,14 @@ class _Canvas extends StatelessWidget {
 
 class _DevicePreviewCanvas extends StatelessWidget {
   final Widget? component;
-  final TransformationController controller;
-  _DevicePreviewCanvas(this.component, this.controller);
+  _DevicePreviewCanvas(
+    this.component,
+  );
   @override
   Widget build(BuildContext context) {
     return DevicePreview(
       builder: (context) {
-        return InteractiveViewer(
-          boundaryMargin: EdgeInsets.all(double.infinity),
-          child: component ?? const SizedBox.shrink(),
-          panEnabled: true,
-          transformationController: controller,
-        );
+        return component ?? Container();
       },
     );
   }
@@ -160,17 +157,83 @@ class _Doc extends StatelessWidget {
   }
 }
 
-class _InteractiveViewerCanvas extends StatelessWidget {
+class _InteractiveViewerCanvas extends StatefulWidget {
   final Widget? component;
   final TransformationController controller;
   _InteractiveViewerCanvas(this.component, this.controller);
+
+  @override
+  State<_InteractiveViewerCanvas> createState() =>
+      _InteractiveViewerCanvasState();
+}
+
+class _InteractiveViewerCanvasState extends State<_InteractiveViewerCanvas>
+    with TickerProviderStateMixin {
+  Animation<Matrix4>? _animationReset;
+  late AnimationController _controllerReset;
+
+  @override
+  void initState() {
+    super.initState();
+    _controllerReset = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 400),
+    );
+  }
+
+  void _onAnimateReset() {
+    widget.controller.value = _animationReset!.value;
+    if (!_controllerReset.isAnimating) {
+      _animationReset?.removeListener(_onAnimateReset);
+      _animationReset = null;
+      _controllerReset.reset();
+    }
+  }
+
+  void _animateResetInitialize() {
+    _controllerReset.reset();
+    _animationReset = Matrix4Tween(
+      begin: widget.controller.value,
+      end: Matrix4.identity(),
+    ).animate(_controllerReset);
+    _animationReset?.addListener(_onAnimateReset);
+    _controllerReset.forward();
+  }
+
+// Stop a running reset to home transform animation.
+  void _animateResetStop() {
+    _controllerReset.stop();
+    _animationReset?.removeListener(_onAnimateReset);
+    _animationReset = null;
+    _controllerReset.reset();
+  }
+
+  void _onInteractionStart(ScaleStartDetails details) {
+    // If the user tries to cause a transformation while the reset animation is
+    // running, cancel the reset animation.
+    if (_controllerReset.status == AnimationStatus.forward) {
+      _animateResetStop();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return InteractiveViewer(
-      boundaryMargin: EdgeInsets.all(double.infinity),
-      child: component ?? const SizedBox.shrink(),
-      panEnabled: true,
-      transformationController: controller,
+    return Consumer<PanProvider>(
+      builder: (context, model, child) {
+        model.addListener(() {
+          if (!model.panEnabled) {
+            _animateResetInitialize();
+          }
+        });
+
+        return InteractiveViewer(
+          boundaryMargin: EdgeInsets.all(double.infinity),
+          child: widget.component ?? const SizedBox.shrink(),
+          panEnabled: model.panEnabled,
+          onInteractionStart: _onInteractionStart,
+          transformationController: widget.controller,
+        );
+      },
     );
   }
 }

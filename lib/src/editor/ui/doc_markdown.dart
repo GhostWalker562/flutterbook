@@ -21,7 +21,11 @@ class DocMarkDown extends StatelessWidget {
         styleSheet: MarkdownStyleSheet.fromTheme(Theme.of(context)),
         onTapText: () {
           Clipboard.setData(new ClipboardData(text: markdown ?? ''));
-          Scaffold.of(context).showSnackBar(SnackBar(content: Text("Copy Code Snippet")));
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text("Copy Code Snippet"),
+            ),
+          );
         },
         controller: controller,
         data: markdown ?? DEFAULT_MARKDOWN,

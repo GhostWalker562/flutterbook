@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutterbook/src/editor/editor.dart';
 import 'package:flutterbook/src/editor/providers/device_preview_provider.dart';
+import 'package:flutterbook/src/editor/providers/pan_provider.dart';
 import 'package:flutterbook/src/editor/providers/tab_provider.dart';
 import 'package:flutterbook/src/editor/ui/styled_icon_button.dart';
 import 'package:provider/provider.dart';
@@ -45,7 +46,8 @@ class _CoreContentTabsState extends State<CoreContentTabs> {
                 border: Border(
                   bottom: BorderSide(
                     color: context.colorScheme.primary,
-                    style: context.watch<TabProvider>().tab == FlutterBookTab.canvas
+                    style: context.watch<TabProvider>().tab ==
+                            FlutterBookTab.canvas
                         ? BorderStyle.solid
                         : BorderStyle.none,
                     width: 3,
@@ -111,6 +113,11 @@ class _CanvasTabs extends StatelessWidget {
     return Row(
       children: [
         StyledTextButton(
+          icon: FeatherIcons.mousePointer,
+          isActive: context.watch<PanProvider>().panEnabled,
+          onPressed: context.read<PanProvider>().toggle,
+        ),
+        StyledTextButton(
           icon: FeatherIcons.zoomIn,
           onPressed: context.read<ZoomProvider>().zoomIn,
         ),
@@ -126,12 +133,14 @@ class _CanvasTabs extends StatelessWidget {
         ),
         StyledTextButton(
           icon: FeatherIcons.grid,
+          isActive: context.watch<GridProvider>().grid,
           onPressed: context.read<GridProvider>().toggleGrid,
         ),
         const TabsVerticalDivider(),
         _spacer,
         StyledTextButton(
           icon: FeatherIcons.smartphone,
+          isActive: context.watch<DevicePreviewProvider>().show,
           onPressed: context.read<DevicePreviewProvider>().togglePreview,
         ),
         _spacer,
