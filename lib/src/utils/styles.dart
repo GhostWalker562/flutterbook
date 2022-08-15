@@ -31,8 +31,6 @@ class Styles {
 
   static ThemeData darkTheme = ThemeData(
     colorScheme: const ColorScheme.dark(
-      // surface: Color(0xff121212),
-      // onSurface: Colors.white,
       primary: Color(0xffce4a4f),
       onPrimary: Colors.white,
       secondary: Color(0xff917DD8),

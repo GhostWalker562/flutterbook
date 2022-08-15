@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutterbook/src/editor/providers/device_preview_provider.dart';
 import 'package:flutterbook/src/editor/providers/pan_provider.dart';
 import 'package:flutterbook/src/editor/providers/tab_provider.dart';
+import 'package:flutterbook/src/utils/flutter_book_theme.dart';
 import 'package:provider/provider.dart';
 
 import 'editor/editor.dart';
@@ -31,13 +32,23 @@ class FlutterBook extends StatefulWidget {
   /// The padding for the branding/header of the project.
   final EdgeInsetsGeometry headerPadding;
 
+  /// Custom theme for the code sample shown on component state documentation.
+  final CodeSampleThemeData? codeSampleTheme;
+
+  /// This is used for projects that have more than two themes, if it is defined
+  /// and not empty, then the `theme` and `darkTheme` will be ignored and a
+  /// dropdown will appear in the editor tabs.
+  final List<FlutterBookTheme>? themes;
+
   const FlutterBook({
     Key? key,
     required this.categories,
     this.theme,
     this.darkTheme,
+    this.codeSampleTheme,
     this.header,
     this.headerPadding = const EdgeInsets.fromLTRB(20, 16, 20, 8),
+    this.themes,
   }) : super(key: key);
 
   @override
@@ -48,10 +59,15 @@ class _FlutterBookState extends State<FlutterBook> {
   GlobalKey<NavigatorState> navigator = GlobalKey<NavigatorState>();
   Widget? selectedComponent;
 
+  bool get useMultiTheme => widget.themes != null && widget.themes!.length > 1;
+  List<String> get themeNames =>
+      widget.themes?.map((theme) => theme.themeName).toList() ?? [];
+
   @override
   void initState() {
     if (widget.darkTheme != null) Styles.darkTheme = widget.darkTheme!;
     if (widget.theme != null) Styles.lightTheme = widget.theme!;
+
     super.initState();
   }
 
@@ -61,19 +77,28 @@ class _FlutterBookState extends State<FlutterBook> {
       providers: [
         Provider.value(value: widget.categories),
         ChangeNotifierProvider(create: (_) => CanvasDelegateProvider()),
-        ChangeNotifierProvider(create: (_) => DarkThemeProvider()),
+        ChangeNotifierProvider(
+          create: (_) => ThemeProvider(
+            useListOfThemes: useMultiTheme,
+            themeNames: themeNames,
+          ),
+        ),
         ChangeNotifierProvider(create: (_) => DevicePreviewProvider()),
         ChangeNotifierProvider(create: (_) => GridProvider()),
         ChangeNotifierProvider(create: (_) => TabProvider()),
         ChangeNotifierProvider(create: (_) => ZoomProvider()),
         ChangeNotifierProvider(create: (_) => PanProvider()),
       ],
-      child: Consumer<DarkThemeProvider>(
+      child: Consumer<ThemeProvider>(
         builder: (BuildContext context, model, Widget? child) {
+          ThemeData activeTheme = useMultiTheme
+              ? widget.themes![model.activeThemeIndex].theme
+              : widget.theme ?? Styles().theme;
+
           return MaterialApp(
             title: 'Flutterbook',
             debugShowCheckedModeBanner: false,
-            theme: Styles().theme,
+            theme: activeTheme,
             builder: (context, child) {
               return StyledScaffold(
                 body: Row(

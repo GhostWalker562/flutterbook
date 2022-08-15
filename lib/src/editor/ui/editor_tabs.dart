@@ -96,12 +96,55 @@ class _CoreContentTabsState extends State<CoreContentTabs> {
           const TabsVerticalDivider(),
           if (context.read<TabProvider>().tab == FlutterBookTab.canvas)
             _CanvasTabs(),
-          StyledTextButton(
-            icon: FeatherIcons.moon,
-            onPressed: context.read<DarkThemeProvider>().toggleDarkTheme,
-          ),
+          if (!context.watch<ThemeProvider>().isUsingListOfThemes)
+            StyledTextButton(
+              icon: FeatherIcons.moon,
+              onPressed: context.read<ThemeProvider>().toggleDarkTheme,
+            ),
+          if (context.watch<ThemeProvider>().isUsingListOfThemes)
+            _MultiThemeDropdownButton(),
         ],
       ),
+    );
+  }
+}
+
+class ThemeItem {
+  final String name;
+  final int index;
+  ThemeItem({required this.name, required this.index});
+}
+
+class _MultiThemeDropdownButton extends StatelessWidget {
+  const _MultiThemeDropdownButton({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    List<DropdownMenuItem<ThemeItem>> themeItems = context
+        .watch<ThemeProvider>()
+        .themeNames
+        .asMap()
+        .map((index, name) {
+          return MapEntry(
+            index,
+            DropdownMenuItem<ThemeItem>(
+              value: ThemeItem(name: name, index: index),
+              child: Text(name),
+            ),
+          );
+        })
+        .values
+        .toList();
+
+    return DropdownButton<ThemeItem>(
+      items: themeItems,
+      dropdownColor: Theme.of(context).scaffoldBackgroundColor,
+      value: themeItems[context.watch<ThemeProvider>().activeThemeIndex].value,
+      onChanged: (ThemeItem? item) {
+        if (item != null) {
+          context.read<ThemeProvider>().onChangeActiveThemeIndex(item.index);
+        }
+      },
     );
   }
 }

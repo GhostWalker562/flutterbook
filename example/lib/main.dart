@@ -1,4 +1,5 @@
 import 'package:example/list_example.dart';
+import 'package:example/themes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutterbook/flutterbook.dart';
 
@@ -12,6 +13,7 @@ class Storyboard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FlutterBook(
+      themes: Themes.themes,
       categories: [
         Category(
           categoryName: 'LIBRARY',
