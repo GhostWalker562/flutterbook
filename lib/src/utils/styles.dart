@@ -11,6 +11,7 @@ class Styles {
       // surface: Colors.white,
       onSurface: Color(0xff222222),
       primary: Color(0xffce4a4f),
+      onPrimary: Colors.white,
       primaryContainer: Color(0xffe07356),
       secondary: Color(0xff2b2540),
       secondaryContainer: Color(0xff483F6C),

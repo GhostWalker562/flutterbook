@@ -15,6 +15,7 @@ Go subscribe to my YouTube channel to support development.
 # [![MOONSDONTBURN Header](https://i.imgur.com/1QHjcUZ.png)](https://www.youtube.com/channel/UCurQRmT17EyOIrdPseiastg)
 
 ### Demo
+
 <a href="https://flutterbook.vercel.app/#/" target="_blank">Demo Link Here</a>
 
 ## Overview ✨
@@ -91,9 +92,17 @@ Category(
     ),
     Component(
         componentName: 'Button',
+        compenentMarkdoown: """##A global button component""",
         states: [
         ComponentState(
             stateName: 'Primary',
+            markdown: """Used for the main action to be performed"""
+            codeSample:  r'''
+Button.primary(
+  child: Text('Primary Button'),
+  onPressed: () {},
+);
+'''
             builder: (context, c) {
             return Center(
                 child: SizedBox(
@@ -134,6 +143,7 @@ Category(
 #### That's it!
 
 ## Roadmap 🚧
+
 - [ ] Mobile Support
 - [ ] 100% Code Coverage Testing
 - [X ] Documentation Support in ComponentState's
@@ -143,6 +153,7 @@ Category(
 - [ ] Optimization
 
 ## Contributors 🔥
+
 _Your name could be here_ 😉
 
 <a href="https://github.com/GhostWalker562/flutterbook/graphs/contributors">
