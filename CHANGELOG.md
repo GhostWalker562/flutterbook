@@ -37,3 +37,4 @@
 - Add toggle for panning
 - Add Markdown capabilites for `Component`
 - Fixed bug in example project component
+- *BREAKING* Renamed `DarkThemeProvider` to `ThemeProvider` 
