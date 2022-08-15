@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutterbook/src/editor/providers/device_preview_provider.dart';
 import 'package:flutterbook/src/editor/providers/pan_provider.dart';
 import 'package:flutterbook/src/editor/providers/tab_provider.dart';
-import 'package:flutterbook/src/editor/ui/doc_component.dart';
+import 'package:flutterbook/src/editor/ui/doc_component/doc_component.dart';
+import 'package:flutterbook/src/editor/ui/doc_markdown.dart';
 import 'package:flutterbook/src/routing/router.dart';
 import 'package:provider/provider.dart';
 
@@ -136,22 +137,48 @@ class _Doc extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final TextStyle titleStyle =
+        Theme.of(context).textTheme.subtitle1!.copyWith(
+              color: Theme.of(context).hintColor,
+              fontWeight: FontWeight.bold,
+              fontSize: 32,
+            );
+
     return SingleChildScrollView(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: states
-            .where((i) => i.parent == currentState?.parent)
-            .map(
-              (item) => DocPanel(
-                component: item.builder(
-                  context,
-                  context.watch<CanvasDelegateProvider>().storyProvider!,
-                ),
-                markdown: item.markdown,
-                stateName: item.stateName,
+      child: Align(
+        alignment: Alignment.topCenter,
+        child: Container(
+          padding: EdgeInsets.symmetric(vertical: 64),
+          constraints: BoxConstraints(maxWidth: 900),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                currentState?.parent?.componentName ?? '',
+                style: titleStyle,
               ),
-            )
-            .toList(),
+              if (currentState?.parent?.componentMarkdown != null)
+                DocMarkDown(
+                  markdown: currentState?.parent?.componentMarkdown ?? '',
+                ),
+              ...states
+                  .where((i) => i.parent == currentState?.parent)
+                  .map(
+                    (item) => DocPanel(
+                      component: item.builder(
+                        context,
+                        context.watch<CanvasDelegateProvider>().storyProvider!,
+                      ),
+                      codeSample: item.codeSample,
+                      markdown: item.markdown,
+                      stateName: item.stateName,
+                    ),
+                  )
+                  .toList(),
+            ],
+          ),
+        ),
       ),
     );
   }

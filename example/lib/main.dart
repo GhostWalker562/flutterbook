@@ -32,17 +32,30 @@ class Storyboard extends StatelessWidget {
             ),
             Component(
               componentName: 'Button',
+              componentMarkdown: """
+## Component Markdown Example
+The `Button` is global a component used for user actions.
+               """,
               states: [
                 ComponentState(
-                  markdown: """Dart Doc Example""",
+                  markdown: """
+### Component State Markdown Example
+The `Button.primary` is used for the main action to be performed.
+               """,
+                  codeSample: r'''
+Button.primary(
+  child: Text('Primary Button'),
+  onPressed: () {},
+);
+''',
                   stateName: 'Primary',
                   builder: (context, c) {
                     return Center(
                       child: SizedBox(
                         width: c.number(
                           label: 'Number',
-                          initial: 50,
-                          min: 50,
+                          initial: 100,
+                          min: 100,
                           max: 250,
                         ),
                         height: c.number(
@@ -67,13 +80,59 @@ class Storyboard extends StatelessWidget {
                     );
                   },
                 ),
+                ComponentState(
+                  markdown: """
+### Component State Markdown Example
+The `Button.secondary` is used for user alternate actions.
+               """,
+                  codeSample: r'''
+Button.secondary(
+  child: Text('Primary Button'),
+  onPressed: () {},
+);
+''',
+                  stateName: 'Secondary',
+                  builder: (context, c) {
+                    return Center(
+                      child: SizedBox(
+                        width: c.number(
+                          label: 'Number',
+                          initial: 100,
+                          min: 100,
+                          max: 250,
+                        ),
+                        height: c.number(
+                          label: 'height',
+                          initial: 50,
+                          min: 50,
+                          max: 250,
+                          description: 'random stuff',
+                        ),
+                        child: CupertinoButton(
+                          onPressed: c.boolean(
+                            label: 'boolean',
+                            initial: true,
+                          )
+                              ? () {}
+                              : null,
+                          child: Text(
+                            c.text(
+                              label: 'Text',
+                              initial: 'Hello World',
+                            ),
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                ),
               ],
             ),
             Component(
               componentName: 'List',
               states: [
                 ComponentState(
-                  markdown: """ListExample()""",
+                  codeSample: """ListExample()""",
                   stateName: 'Primary',
                   builder: (context, c) => ListExample(),
                 ),
