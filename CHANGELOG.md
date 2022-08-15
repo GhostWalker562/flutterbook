@@ -26,12 +26,14 @@
 
 - Device Preview
 - Add Document Preview Page
-- Add Markdown capabilites for Components
+- Add Markdown capabilites for `ComponentState`
 - Fixed bug with Controls not working
 
 # 0.1.7
 
-- Device Preview
-- Add Document Preview Page
-- Add Markdown capabilites for Components
-- Fixed bug with Controls not working
+- Add DartCodeView for code snippets
+- Add padding to the Docs tab
+- Add support for Multi Theming (3+ themes)
+- Add toggle for panning
+- Add Markdown capabilites for `Component`
+- Fixed bug in example project component
