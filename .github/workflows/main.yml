@@ -6,6 +6,9 @@ on:
       - main
       - prolificcoder:add_github_ci
       - GhostWalker562:master
+  pull_request_target:
+    branches:
+      - master
 
 jobs:
   run-unit-tests:
