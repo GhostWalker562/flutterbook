@@ -1,28 +1,69 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:flutterbook/src/editor/ui/doc_component/code_expansion_section.dart';
 import 'package:flutterbook/src/editor/ui/doc_markdown.dart';
 import 'package:flutterbook/src/editor/ui/styled_icon_button.dart';
 import 'package:flutterbook/src/utils/extensions.dart';
 import 'package:flutterbook/src/utils/radii.dart';
 
-class DocPanel extends StatefulWidget {
+class DocPanel extends StatelessWidget {
   final Widget component;
   final String? markdown;
+  final String? codeSample;
   final String stateName;
 
   const DocPanel({
     Key? key,
+    this.codeSample,
     required this.component,
     this.markdown,
     required this.stateName,
   }) : super(key: key);
 
   @override
-  _DocPanelState createState() => _DocPanelState();
+  Widget build(BuildContext context) {
+    final TextStyle titleStyle =
+        Theme.of(context).textTheme.subtitle1!.copyWith(
+              color: Theme.of(context).hintColor,
+              fontWeight: FontWeight.bold,
+              fontSize: 16,
+            );
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: EdgeInsets.symmetric(vertical: 20),
+          child: Text(stateName, style: titleStyle),
+        ),
+        CanvasPreview(
+          component: component,
+          codeSample: codeSample,
+        ),
+        if (markdown != null)
+          DocMarkDown(
+            markdown: markdown,
+          ),
+      ],
+    );
+  }
 }
 
-class _DocPanelState extends State<DocPanel> {
-  bool expanded = false;
+class CanvasPreview extends StatefulWidget {
+  final Widget component;
+  final String? codeSample;
+
+  const CanvasPreview({
+    Key? key,
+    this.codeSample,
+    required this.component,
+  }) : super(key: key);
+
+  @override
+  State<CanvasPreview> createState() => _CanvasPreviewState();
+}
+
+class _CanvasPreviewState extends State<CanvasPreview> {
   double _zoom = 1;
   get zoom => _zoom;
 
@@ -44,19 +85,8 @@ class _DocPanelState extends State<DocPanel> {
     });
   }
 
-  void toggleExpansion() {
-    setState(() {
-      expanded = !expanded;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    final TextStyle tabStyle = Theme.of(context).textTheme.subtitle1!.copyWith(
-          color: Theme.of(context).hintColor,
-          fontWeight: FontWeight.bold,
-        );
-
     TransformationController _transformation = TransformationController();
     _transformation.value = Matrix4.identity()..scale(zoom);
     return Container(
@@ -76,10 +106,6 @@ class _DocPanelState extends State<DocPanel> {
         children: [
           Row(
             children: [
-              Padding(
-                padding: EdgeInsets.all(10),
-                child: Text(widget.stateName, style: tabStyle),
-              ),
               VerticalDivider(),
               StyledTextButton(
                 icon: FeatherIcons.zoomIn,
@@ -110,28 +136,7 @@ class _DocPanelState extends State<DocPanel> {
               child: widget.component,
             ),
           ),
-          Align(
-              alignment: Alignment.bottomLeft,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  ExpansionTile(
-                    onExpansionChanged: (bool e) {
-                      setState(() => expanded = e);
-                    },
-                    title: Text(expanded ? "Hide Code" : "Show Code"),
-                    children: <Widget>[
-                      if (expanded)
-                        SizedBox(
-                          height: 400,
-                          child: DocMarkDown(markdown: widget.markdown),
-                        )
-                      else
-                        SizedBox.shrink()
-                    ],
-                  ),
-                ],
-              )),
+          CodeExpansionSection(code: widget.codeSample),
         ],
       ),
     );

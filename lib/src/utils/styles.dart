@@ -11,9 +11,10 @@ class Styles {
       // surface: Colors.white,
       onSurface: Color(0xff222222),
       primary: Color(0xffce4a4f),
-      primaryVariant: Color(0xffe07356),
+      onPrimary: Colors.white,
+      primaryContainer: Color(0xffe07356),
       secondary: Color(0xff2b2540),
-      secondaryVariant: Color(0xff483F6C),
+      secondaryContainer: Color(0xff483F6C),
       onSecondary: Colors.white,
       background: Color(0xfff3f6f9),
       onBackground: Color(0xff222222),
@@ -31,13 +32,9 @@ class Styles {
 
   static ThemeData darkTheme = ThemeData(
     colorScheme: const ColorScheme.dark(
-      // surface: Color(0xff121212),
-      // onSurface: Colors.white,
       primary: Color(0xffce4a4f),
       onPrimary: Colors.white,
-      primaryVariant: Color(0xffe07356),
       secondary: Color(0xff917DD8),
-      secondaryVariant: Color(0xffB794FF),
       onSecondary: Colors.white,
       background: Color(0xff222222),
       onBackground: Color(0xfff3f6f9),

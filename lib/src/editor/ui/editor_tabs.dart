@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutterbook/src/editor/editor.dart';
 import 'package:flutterbook/src/editor/providers/device_preview_provider.dart';
+import 'package:flutterbook/src/editor/providers/pan_provider.dart';
 import 'package:flutterbook/src/editor/providers/tab_provider.dart';
 import 'package:flutterbook/src/editor/ui/styled_icon_button.dart';
 import 'package:provider/provider.dart';
@@ -45,7 +46,8 @@ class _CoreContentTabsState extends State<CoreContentTabs> {
                 border: Border(
                   bottom: BorderSide(
                     color: context.colorScheme.primary,
-                    style: context.watch<TabProvider>().tab == FlutterBookTab.canvas
+                    style: context.watch<TabProvider>().tab ==
+                            FlutterBookTab.canvas
                         ? BorderStyle.solid
                         : BorderStyle.none,
                     width: 3,
@@ -94,12 +96,55 @@ class _CoreContentTabsState extends State<CoreContentTabs> {
           const TabsVerticalDivider(),
           if (context.read<TabProvider>().tab == FlutterBookTab.canvas)
             _CanvasTabs(),
-          StyledTextButton(
-            icon: FeatherIcons.moon,
-            onPressed: context.read<DarkThemeProvider>().toggleDarkTheme,
-          ),
+          if (!context.watch<ThemeProvider>().isUsingListOfThemes)
+            StyledTextButton(
+              icon: FeatherIcons.moon,
+              onPressed: context.read<ThemeProvider>().toggleDarkTheme,
+            ),
+          if (context.watch<ThemeProvider>().isUsingListOfThemes)
+            _MultiThemeDropdownButton(),
         ],
       ),
+    );
+  }
+}
+
+class ThemeItem {
+  final String name;
+  final int index;
+  ThemeItem({required this.name, required this.index});
+}
+
+class _MultiThemeDropdownButton extends StatelessWidget {
+  const _MultiThemeDropdownButton({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    List<DropdownMenuItem<ThemeItem>> themeItems = context
+        .watch<ThemeProvider>()
+        .themeNames
+        .asMap()
+        .map((index, name) {
+          return MapEntry(
+            index,
+            DropdownMenuItem<ThemeItem>(
+              value: ThemeItem(name: name, index: index),
+              child: Text(name),
+            ),
+          );
+        })
+        .values
+        .toList();
+
+    return DropdownButton<ThemeItem>(
+      items: themeItems,
+      dropdownColor: Theme.of(context).scaffoldBackgroundColor,
+      value: themeItems[context.watch<ThemeProvider>().activeThemeIndex].value,
+      onChanged: (ThemeItem? item) {
+        if (item != null) {
+          context.read<ThemeProvider>().onChangeActiveThemeIndex(item.index);
+        }
+      },
     );
   }
 }
@@ -110,6 +155,11 @@ class _CanvasTabs extends StatelessWidget {
     const _spacer = const SizedBox(width: 8);
     return Row(
       children: [
+        StyledTextButton(
+          icon: FeatherIcons.mousePointer,
+          isActive: context.watch<PanProvider>().panEnabled,
+          onPressed: context.read<PanProvider>().toggle,
+        ),
         StyledTextButton(
           icon: FeatherIcons.zoomIn,
           onPressed: context.read<ZoomProvider>().zoomIn,
@@ -126,12 +176,14 @@ class _CanvasTabs extends StatelessWidget {
         ),
         StyledTextButton(
           icon: FeatherIcons.grid,
+          isActive: context.watch<GridProvider>().grid,
           onPressed: context.read<GridProvider>().toggleGrid,
         ),
         const TabsVerticalDivider(),
         _spacer,
         StyledTextButton(
           icon: FeatherIcons.smartphone,
+          isActive: context.watch<DevicePreviewProvider>().show,
           onPressed: context.read<DevicePreviewProvider>().togglePreview,
         ),
         _spacer,

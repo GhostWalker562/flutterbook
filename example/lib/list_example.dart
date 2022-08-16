@@ -10,6 +10,7 @@ class ListExample extends StatelessWidget {
       color: Colors.white,
       child: ListView.builder(
         itemCount: 10,
+        shrinkWrap: true,
         itemBuilder: (_, i) => Container(
           width: 400,
           height: 100,

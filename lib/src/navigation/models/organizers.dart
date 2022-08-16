@@ -39,10 +39,14 @@ class Folder extends Organizer {
 
 class Component extends Organizer {
   final String componentName;
+
+  /// Markdown with documentation for the component.
+  final String? componentMarkdown;
   final List<ComponentState> states;
 
   Component({
     required this.componentName,
+    this.componentMarkdown,
     required this.states,
   }) : super(componentName, OrganizerType.component, const <Organizer>[]) {
     for (final ComponentState state in states) {
@@ -55,6 +59,7 @@ class ComponentState {
   Component? parent;
   final String? markdown;
   final String stateName;
+  final String? codeSample;
   final Widget Function(BuildContext, ControlsInterface) builder;
 
   String get path {
@@ -71,25 +76,32 @@ class ComponentState {
     required this.builder,
     required this.stateName,
     this.markdown,
+    this.codeSample,
   });
+
   factory ComponentState.center({
     required Widget child,
     String? markdown,
+    String? codeSample,
     required String stateName,
   }) =>
       ComponentState(
         builder: (_, __) => Center(child: child),
         markdown: markdown,
         stateName: stateName,
+        codeSample: codeSample,
       );
+
   factory ComponentState.child({
     required Widget child,
     String? markdown,
+    String? codeSample,
     required String stateName,
   }) =>
       ComponentState(
         builder: (_, __) => child,
         markdown: markdown,
         stateName: stateName,
+        codeSample: codeSample,
       );
 }
