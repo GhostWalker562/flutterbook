@@ -1,6 +1,7 @@
 import 'package:example/list_example.dart';
 import 'package:example/themes.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutterbook/flutterbook.dart';
 
 void main() {
@@ -67,7 +68,18 @@ Button.primary(
                           max: 250,
                           description: 'random stuff',
                         ),
-                        child: CupertinoButton.filled(
+                        child: CupertinoButton(
+                          color: c.list<Color>(
+                            label: "Color",
+                            initial: Colors.red,
+                            value: Colors.red,
+                            list: [
+                              ListItem(title: "Red", value: Colors.red),
+                              ListItem(title: "Blue", value: Colors.blue),
+                              ListItem(title: "Black", value: Colors.black),
+                              ListItem(title: "Amber", value: Colors.amber),
+                            ],
+                          ),
                           onPressed: c.boolean(
                             label: 'boolean',
                             initial: true,
