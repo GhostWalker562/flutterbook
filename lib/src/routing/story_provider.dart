@@ -65,7 +65,7 @@ class StoryProvider extends ChangeNotifier implements ControlsInterface {
     String description = kDefaultNoDescMessage,
   }) =>
       addControl(NumberControl(label, initial, initial, description, min, max));
-      
+
   @override
   void dispose() {
     _disposed = true;
@@ -77,5 +77,16 @@ class StoryProvider extends ChangeNotifier implements ControlsInterface {
     if (!_disposed) {
       super.notifyListeners();
     }
+  }
+
+  @override
+  T list<T>({
+    required String label,
+    required T initial,
+    required List<ListItem<T>> list,
+    required T value,
+    String description = kDefaultNoDescMessage,
+  }) {
+    return addControl(ListControl<T>(label, value, initial, description, list));
   }
 }

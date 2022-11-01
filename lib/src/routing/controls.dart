@@ -1,7 +1,9 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../flutterbook.dart';
 import '../editor/editor.dart';
 import '../utils/utils.dart';
 
@@ -35,6 +37,14 @@ abstract class ControlsInterface {
     String description,
     double max = 1,
     double min = 0,
+  });
+
+  T list<T>({
+    required String label,
+    required T initial,
+    required List<ListItem<T>> list,
+    required T value,
+    String description,
   });
 }
 
@@ -257,6 +267,89 @@ class _BaseControlLayout extends StatelessWidget {
           child: control,
         ),
       ],
+    );
+  }
+}
+
+class ListControl<T> extends Control<T> {
+  final List<ListItem<T>> list;
+  ListControl(String label, T value, T initial, String description, this.list)
+      : super(label, value, initial, description);
+
+  @override
+  Widget build() =>
+      ListControlWidget<T>(label, value, initial, description, list);
+}
+
+class ListControlWidget<T> extends StatefulWidget {
+  const ListControlWidget(
+      this.label, this.value, this.initial, this.description, this.list,
+      {Key? key})
+      : super(key: key);
+
+  final String label;
+  final T value;
+  final T initial;
+  final String description;
+  final List<ListItem<T>> list;
+
+  @override
+  State<ListControlWidget<T>> createState() => _ListControlWidgetState<T>();
+}
+
+class _ListControlWidgetState<T> extends State<ListControlWidget<T>> {
+  late ListItem<T>? value;
+  late List<ListItem<T>> listValues;
+
+  @override
+  void initState() {
+    listValues = widget.list;
+    if (widget.list.any((element) => element.title == widget.initial)) {
+      value = widget.list
+          .firstWhere((element) => element.title == widget.initial);
+    } else {
+      value = widget.list.first;
+    }
+
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    List<DropdownMenuItem<ListItem<T>>> items = listValues
+        .asMap()
+        .map((index, name) {
+          return MapEntry(
+            index,
+            DropdownMenuItem<ListItem<T>>(
+              value: name,
+              child: Text(name.title.toString()),
+            ),
+          );
+        })
+        .values
+        .toList();
+
+    return _BaseControlLayout(
+      label: widget.label,
+      desc: widget.description,
+      def: widget.initial.toString(),
+      control: DropdownButton<ListItem<T>>(
+        items: items,
+        dropdownColor: Theme.of(context).scaffoldBackgroundColor,
+        value: value,
+        onChanged: (ListItem<T>? item) {
+          if (item != null) {
+            setState(() {
+              context
+                  .read<CanvasDelegateProvider>()
+                  .storyProvider!
+                  .update(widget.label, item.value);
+              value = item;
+            });
+          }
+        },
+      ),
     );
   }
 }

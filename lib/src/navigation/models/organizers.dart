@@ -105,3 +105,12 @@ class ComponentState {
         codeSample: codeSample,
       );
 }
+
+class ListItem<T> {
+  final String title;
+  final T value;
+  ListItem({
+    required this.title,
+    required this.value,
+  });
+}
