@@ -38,3 +38,7 @@
 - Add Markdown capabilites for `Component`
 - Fixed bug in example project component
 - *BREAKING* Renamed `DarkThemeProvider` to `ThemeProvider` 
+
+# 0.1.8
+
+- Add Controls for Items

@@ -1,6 +1,6 @@
 name: flutterbook
 description: A storyboard tool to accelerate the development of Flutter widgets.
-version: 0.1.7
+version: 0.1.8
 homepage: https://github.com/GhostWalker562/flutterbook
 
 environment:
