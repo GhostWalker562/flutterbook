@@ -18,6 +18,7 @@ class Storyboard extends StatelessWidget {
       categories: [
         Category(
           categoryName: 'LIBRARY',
+
           organizers: [
             Folder(
               folderName: 'Charts',
@@ -153,6 +154,7 @@ Button.secondary(
               ],
             ),
           ],
+
         ),
       ],
     );
