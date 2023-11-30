@@ -40,6 +40,12 @@ class FlutterBook extends StatefulWidget {
   /// dropdown will appear in the editor tabs.
   final List<FlutterBookTheme>? themes;
 
+  final Locale? locale;
+  final Iterable<LocalizationsDelegate<dynamic>>? localizationsDelegates;
+  final LocaleListResolutionCallback? localeListResolutionCallback;
+  final LocaleResolutionCallback? localeResolutionCallback;
+  final Iterable<Locale>? supportedLocales;
+
   const FlutterBook({
     Key? key,
     required this.categories,
@@ -49,6 +55,11 @@ class FlutterBook extends StatefulWidget {
     this.header,
     this.headerPadding = const EdgeInsets.fromLTRB(20, 16, 20, 8),
     this.themes,
+    this.locale,
+    this.localizationsDelegates,
+    this.localeListResolutionCallback,
+    this.localeResolutionCallback,
+    this.supportedLocales,
   }) : super(key: key);
 
   @override
@@ -99,6 +110,12 @@ class _FlutterBookState extends State<FlutterBook> {
             title: 'Flutterbook',
             debugShowCheckedModeBanner: false,
             theme: activeTheme,
+            locale: widget.locale,
+            localizationsDelegates: widget.localizationsDelegates,
+            localeListResolutionCallback: widget.localeListResolutionCallback,
+            localeResolutionCallback: widget.localeResolutionCallback,
+            supportedLocales:
+            widget.supportedLocales ?? const <Locale>[Locale('en', 'US')],
             builder: (context, child) {
               return StyledScaffold(
                 body: Row(
