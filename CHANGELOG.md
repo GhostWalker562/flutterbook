@@ -37,8 +37,13 @@
 - Add toggle for panning
 - Add Markdown capabilites for `Component`
 - Fixed bug in example project component
-- *BREAKING* Renamed `DarkThemeProvider` to `ThemeProvider` 
+- _BREAKING_ Renamed `DarkThemeProvider` to `ThemeProvider`
 
 # 0.1.8
 
 - Add Controls for Items
+
+# 0.1.9
+
+- Update dependencies
+- Export l10n-related properties
