@@ -22,12 +22,12 @@ class CoreContentTabs extends StatefulWidget {
 class _CoreContentTabsState extends State<CoreContentTabs> {
   @override
   Widget build(BuildContext context) {
-    final TextStyle selectedTabStyle = context.textTheme.subtitle1!.copyWith(
+    final TextStyle selectedTabStyle = context.textTheme.titleMedium!.copyWith(
       fontWeight: FontWeight.bold,
       color: context.colorScheme.primary,
     );
 
-    final TextStyle tabStyle = context.textTheme.subtitle1!.copyWith(
+    final TextStyle tabStyle = context.textTheme.titleMedium!.copyWith(
       fontWeight: FontWeight.bold,
       color: context.theme.hintColor,
     );

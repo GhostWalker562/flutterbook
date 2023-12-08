@@ -34,6 +34,7 @@ class _SmoothScrollState extends State<SmoothScroll> {
   @override
   Widget build(BuildContext context) {
     widget.controller.addListener(() {
+      // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
       if (widget.controller.position.activity is IdleScrollActivity) {
         _scroll = widget.controller.position.extentBefore;
       }

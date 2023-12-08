@@ -52,7 +52,7 @@ class _NavigationPanelState extends State<NavigationPanel> {
               const EdgeInsets.only(top: 12.0, bottom: 4, left: 20, right: 20),
           child: Text(
             item.name,
-            style: context.textTheme.subtitle2!.copyWith(
+            style: context.textTheme.displayMedium!.copyWith(
               fontWeight: FontWeight.w600,
               letterSpacing: 2,
             ),
@@ -213,7 +213,7 @@ class _NavigationHeader extends StatelessWidget {
                 const SizedBox(width: 8),
                 Text(
                   'Flutterbook',
-                  style: context.textTheme.headline5!
+                  style: context.textTheme.headlineSmall!
                       .copyWith(fontWeight: FontWeight.bold),
                 ),
               ],
@@ -221,7 +221,7 @@ class _NavigationHeader extends StatelessWidget {
           ),
           Text(
             'by MOONSDONTBURN',
-            style: context.textTheme.caption,
+            style: context.textTheme.bodySmall,
           ),
         ],
       ),

@@ -138,7 +138,7 @@ class _Doc extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final TextStyle titleStyle =
-        Theme.of(context).textTheme.subtitle1!.copyWith(
+        Theme.of(context).textTheme.titleMedium!.copyWith(
               color: Theme.of(context).hintColor,
               fontWeight: FontWeight.bold,
               fontSize: 32,
@@ -280,7 +280,7 @@ class Story extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text('😉', style: context.textTheme.headline2),
+                Text('😉', style: context.textTheme.displayMedium),
                 const SizedBox(height: 12),
                 const Text('Select a Story!'),
               ],

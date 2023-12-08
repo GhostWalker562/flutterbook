@@ -8,6 +8,7 @@ class CanvasDelegateProvider extends ChangeNotifier {
 
   StoryProvider? _storyProvider;
 
+  // ignore: unnecessary_getters_setters
   StoryProvider? get storyProvider => _storyProvider;
 
   set storyProvider(StoryProvider? provider) {
