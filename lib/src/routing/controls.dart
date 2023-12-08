@@ -250,7 +250,7 @@ class _BaseControlLayout extends StatelessWidget {
           flex: 2,
           child: Text(
             label,
-            style: context.textTheme.bodyText1!
+            style: context.textTheme.bodyLarge!
                 .copyWith(fontWeight: FontWeight.bold),
           ),
         ),

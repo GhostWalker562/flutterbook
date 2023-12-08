@@ -56,7 +56,7 @@ class _ComponentStateTileState extends State<ComponentStateTile>
             const SizedBox(width: 8),
             Text(
               widget.item.stateName,
-              style: context.textTheme.bodyText1!.copyWith(color: hoverColor),
+              style: context.textTheme.bodyLarge!.copyWith(color: hoverColor),
             ),
           ],
         ),
@@ -123,7 +123,7 @@ class _ComponentTileState extends State<ComponentTile>
                 Text(
                   widget.item.name,
                   style:
-                      context.textTheme.bodyText1!.copyWith(color: hoverColor),
+                      context.textTheme.bodyLarge!.copyWith(color: hoverColor),
                 ),
               ],
             ),
@@ -197,7 +197,7 @@ class _FolderTileState extends State<FolderTile>
                 Text(
                   widget.item.name,
                   style:
-                      context.textTheme.bodyText1!.copyWith(color: hoverColor),
+                      context.textTheme.bodyLarge!.copyWith(color: hoverColor),
                 ),
               ],
             ),

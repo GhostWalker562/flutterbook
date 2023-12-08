@@ -79,7 +79,7 @@ class _BottomBarContent extends StatelessWidget {
   const _BottomBarContent({Key? key}) : super(key: key);
 
   Widget builderHeaders(BuildContext context) {
-    final headerTextStyle = context.textTheme.subtitle2!.copyWith(
+    final headerTextStyle = context.textTheme.titleSmall!.copyWith(
       fontWeight: FontWeight.w600,
       color: context.colorScheme.onSurface.withOpacity(0.5),
     );
@@ -169,12 +169,12 @@ class _TabButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TextStyle selectedTabStyle = context.textTheme.subtitle1!.copyWith(
+    final TextStyle selectedTabStyle = context.textTheme.titleMedium!.copyWith(
       fontWeight: FontWeight.bold,
       color: context.colorScheme.primary,
     );
 
-    final TextStyle tabStyle = context.textTheme.subtitle1!.copyWith(
+    final TextStyle tabStyle = context.textTheme.titleMedium!.copyWith(
       fontWeight: FontWeight.bold,
       color: context.theme.hintColor,
     );

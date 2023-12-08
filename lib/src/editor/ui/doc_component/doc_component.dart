@@ -23,7 +23,7 @@ class DocPanel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final TextStyle titleStyle =
-        Theme.of(context).textTheme.subtitle1!.copyWith(
+        Theme.of(context).textTheme.titleMedium!.copyWith(
               color: Theme.of(context).hintColor,
               fontWeight: FontWeight.bold,
               fontSize: 16,
